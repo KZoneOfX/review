@@ -85,7 +85,7 @@
 
     <!-- 事务 aop 配置 -->
     <aop:config>
-        <aop:pointcut id="serviceMethods" expression="execution(* Review.r_server.*(..))"/>
+        <aop:pointcut id="serviceMethods" expression="execution(* Review.*.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods"/>
     </aop:config>
 
