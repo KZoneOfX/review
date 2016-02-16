@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- ===========================业务配置start（所有业务模块配置在下面,如果要清空工程直接删除该文件和web.xml中配置即可）================== -->
+
+    <!-- 例如start -->
+    <!--
+            <bean id="studentService" class= "iHeart.server.com.student.StudentServiceImpl">
+                <property name="studentMapper"  ref="studentMapper"/>
+            </bean>
+            <bean id="studentMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+                <property name="mapperInterface" value= "iHeart.server.com.student.StudentMapper"/>
+                <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+            </bean>
+     -->
+    <!-- 例如end   -->
+    <!-- start by kzone -->
+    <bean id="userService" class= "Review.r_basic.r_b_user.UserServiceImpl">
+        <property name="userMapper"  ref="userMapper"/>
+    </bean>
+    <bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value= "Review.r_basic.r_b_user.UserMapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+    <bean id="permissionService" class= "Review.r_basic.r_b_permission.PermissionServiceImpl">
+        <property name="permissionMapper"  ref="permissionMapper"/>
+    </bean>
+    <bean id="permissionMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value= "Review.r_basic.r_b_permission.PermissionMapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+    <bean id="roleService" class= "Review.r_basic.r_b_role.RoleServiceImpl">
+        <property name="roleMapper"  ref="roleMapper"/>
+    </bean>
+    <bean id="roleMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value= "Review.r_basic.r_b_role.RoleMapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+
+    <!-- end by kzone -->
+
+
+
+</beans>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Review.r_basic.r_b_permission.PermissionMapper">
+    <!-- 通过角色id 查询角色 拥有的权限 -->
+    <select id="selectPermissionsByRoleId" parameterType="java.lang.Long" resultMap="Permission">
+        SELECT p.* FROM i_permission p LEFT JOIN i_role_permission rp ON rp.permission_id = p.id
+        WHERE rp.role_id =
+        #{id,jdbcType=BIGINT}
+    </select>
+</mapper>
