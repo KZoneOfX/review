@@ -9,7 +9,7 @@
         select
         *
         from i_user
-        where username = #{username,jdbcType=VARCHAR}
+        where username = #{username,jdbcType=VARCHAR} and password = #{password,jdbcType = VARCHAR}
     </select>
 
 </mapper>

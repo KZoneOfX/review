@@ -52,8 +52,6 @@ public class LoginController {
     public Map<String, String> login(@Valid User user, BindingResult result, Model model, HttpServletRequest request) {
         Map<String, String> responceJSON = new HashMap<String, String>();
         logger.info("login user" + user.getUsername());
-        User newUser = userService.authentication(user);
-        System.out.println("@@@@@@@@@@@@@@@@  " + newUser.toString());
         try {
             Subject subject = SecurityUtils.getSubject();
 
