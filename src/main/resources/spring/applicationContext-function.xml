@@ -33,6 +33,7 @@
         <property name="mapperInterface" value= "Review.r_basic.r_b_permission.PermissionMapper"/>
         <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
     </bean>
+
     <bean id="roleService" class= "Review.r_basic.r_b_role.RoleServiceImpl">
         <property name="roleMapper"  ref="roleMapper"/>
     </bean>
@@ -40,6 +41,15 @@
         <property name="mapperInterface" value= "Review.r_basic.r_b_role.RoleMapper"/>
         <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
     </bean>
+    <!--用户信息 管理 -->
+    <bean id="userInfoService" class="Review.r_server.userInfo.UserInfoServiceImpl">
+        <property name="userInfoMapper" ref="userInfoMapper"/>
+    </bean>
+    <bean id="userInfoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="Review.r_server.userInfo.UserInfoMapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+
 
     <!-- end by kzone -->
 

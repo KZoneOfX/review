@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="Review.r_basic.r_b_user.UserMapper">
-
     <select id="selectByUsername" parameterType="String" resultType="User">
-        select * from i_user where username=#{username}
+        select * from i_user where username=#{username,jdbcType= VARCHAR}
     </select>
     <!-- 用户登录验证查询 -->
     <select id="authentication" resultType="User" parameterType="User">
         select
         *
         from i_user
-        where username = #{user.username,jdbcType=VARCHAR} and password = #{user.password,jdbcType=CHAR}
+        where username = #{username,jdbcType=VARCHAR}
     </select>
 
 </mapper>

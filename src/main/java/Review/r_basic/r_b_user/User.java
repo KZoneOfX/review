@@ -19,6 +19,8 @@ public class User implements Serializable {
 
     private String password;
 
+    private int state;
+
     public Long getId() {
         return id;
     }
@@ -43,9 +45,20 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public User() {
+    }
+
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
 
     @Override
@@ -54,7 +67,7 @@ public class User implements Serializable {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", state=" + state +
                 '}';
     }
-
 }

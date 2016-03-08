@@ -3,9 +3,6 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-    <properties>
-        <property name="dialectClass" value="iHeart.base.feature.orm.dialect.MySql5Dialect"/>
-    </properties>
 
     <settings>
         <!-- 这个配置使全局的映射器启用或禁用缓存 -->
@@ -47,21 +44,21 @@
     </settings>
 
     <typeAliases>
-        <typeAlias type="Review.r_basic.r_b_user.User" alias="User"/>
+
         <typeAlias type="Review.r_basic.r_b_permission.Permission" alias="Permission"/>
+        <typeAlias type="Review.r_basic.r_b_user.User" alias="User"/>
         <typeAlias type="Review.r_basic.r_b_role.Role" alias="Role"/>
 
+        <typeAlias type="Review.r_server.userInfo.UserInfo" alias="UserInfo"/>
+
     </typeAliases>
-    <!--<plugins>-->
-        <!--<plugin interceptor="iHeart.base.feature.orm.mybatis.PaginationResultSetHandlerInterceptor"/>-->
-        <!--<plugin interceptor="iHeart.base.feature.orm.mybatis.PaginationStatementHandlerInterceptor"/>-->
-    <!--</plugins>-->
 
 
     <mappers>
         <mapper resource="mybatis/mybatis-function/RoleMapper.xml"/>
-        <mapper resource="mybatis/mybatis-function/UserMapper.xml"/>
         <mapper resource="mybatis/mybatis-function/PermissionMapper.xml"/>
+        <mapper resource="mybatis/mybatis-function/UserMapper.xml"/>
+        <mapper resource="mybatis/mybatis-function/UserInfoMapper.xml"/>
 
     </mappers>
 </configuration>

@@ -76,12 +76,19 @@ public class SecurityRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         String username = String.valueOf(token.getPrincipal());
         String password = new String((char[]) token.getCredentials());
-        logger.info("user:"+username+" doGetAuthenticationInfo  login before");
+        logger.info("user:" + username + " doGetAuthenticationInfo  login before" + password);
         // 通过数据库进行验证
-        final User authentication = userService.authentication(new User(username, password));
+
+        User authentication = userService.authentication(new User(username, password));
+//        final User authentication = userService.selectByUsername(username);
+        logger.info("user:" + username + " doGetAuthenticationInfo  login authentication" + authentication.toString());
         if (authentication == null) {
             logger.info("user:"+username+" doGetAuthenticationInfo  login failed");
             throw new AuthenticationException("用户名或密码错误.");
+        } else if (authentication.getState() == 0) {
+            logger.info("user:" + username + " doGetAuthenticationInfo  login failed,reason is the account is Invalid !");
+            throw new AuthenticationException("账号失效.");
+
         }
         logger.info("user:"+username+" doGetAuthenticationInfo  login success");
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(username, password, getName());

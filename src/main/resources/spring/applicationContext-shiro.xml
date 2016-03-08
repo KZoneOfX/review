@@ -8,26 +8,23 @@
 
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
-        <property name="loginUrl" value="welcome.html"/>
-        <property name="successUrl" value="/rest/backgroundindex"/>
+        <property name="loginUrl" value="login.html"/>
+        <property name="successUrl" value="/rest/index"/>
         <property name="unauthorizedUrl" value="/rest/401"/>
         <property name="filterChainDefinitions">
             <value>
                 <!-- 静态资源允许访问 -->
-                /app/** = anon
-                /assets/** = anon
-                /index.html = anon
-                /welcome.html = anon
-                /page.html = anon
+                /appResource/** = anon
                 <!-- 登录页允许访问 -->
+                /login.html = anon
                 /rest/login = anon
-                /rest/welcome = anon
-                /rest/index = anon
-                /rest/user/login = anon
-                /rest/picture/pictureInfo/** = anon
-                /rest/picture/pictureList = anon
-                /rest/picture/indexPictureList = anon
-                /rest/guestBook/addGuestBook = anon
+                <!--/rest/welcome = anon-->
+                <!--/rest/index = anon-->
+                <!--/rest/user/login = anon-->
+                <!--/rest/picture/pictureInfo/** = anon-->
+                <!--/rest/picture/pictureList = anon-->
+                <!--/rest/picture/indexPictureList = anon-->
+                <!--/rest/guestBook/addGuestBook = anon-->
                 <!--/rest/user/getBackAccount= anon-->
                 <!--/rest/user/register = anon-->
                 <!--/index/hi = anon-->

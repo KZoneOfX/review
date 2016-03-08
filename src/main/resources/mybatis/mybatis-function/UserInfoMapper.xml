@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Review.r_server.userInfo.UserInfoMapper">
+
+    <!--int insertUserInfo(UserInfo userInfo);-->
+    <insert id="insertUserInfo" parameterType="UserInfo">
+        INSERT INTO i_user_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="user_id !=null">
+                user_id,
+            </if>
+            <if test="real_name !=null">
+                real_name,
+            </if>
+            <if test="place !=null">
+                place
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="create_time !=null">
+                create_time,
+            </if>
+            <if test="create_person_id !=null">
+                create_person_id,
+            </if>
+            <if test="last_login_time !=null">
+                last_login_time,
+            </if>
+            <if test="stu_review_no !=null">
+                stu_review_no,
+            </if>
+            <if test="stu_paper_status !=null">
+                stu_paper_status,
+            </if>
+            <if test="stu_paper_submit_time_start !=null">
+                stu_paper_submit_time_start,
+            </if>
+            <if test="stu_paper_submit_time_over !=null">
+                stu_paper_submit_time_over,
+            </if>
+            <if test="stu_tch_id !=null">
+                stu_tch_id,
+            </if>
+            <if test="stu_admin_id !=null">
+                stu_admin_id,
+            </if>
+            <if test="tch_job_title !=null">
+                tch_job_titile,
+            </if>
+            <if test="tch_department !=null">
+                tch_department,
+            </if>
+            <if test="tch_office_phone !=null">
+                tch_office_phone,
+            </if>
+            <if test="tch_work_place !=null">
+                tch_work_place,
+            </if>
+            <if test="tch_paper_review_time_start !=null">
+                tch_paper_review_time_start,
+            </if>
+            <if test="tch_paper_review_time_over !=null">
+                tch_paper_review_time_over,
+            </if>
+        </trim>
+        <trim prefix="value (" suffix=")" suffixOverrides=",">
+            <if test="user_id !=null">
+                #{user_id,jdbcType=BIGINT},
+            </if>
+            <if test="real_name !=null">
+                #{real_name,jdbcType=VARCHAR},
+            </if>
+            <if test="place !=null">
+                #{place,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="create_time !=null">
+                #{create_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="create_person_id !=null">
+                #{create_person_id,jdbcType=BIGINT},
+            </if>
+            <if test="last_login_time !=null">
+                #{last_login_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="stu_review_no !=null">
+                #{stu_review_no,jdbcType=VARCHAR},
+            </if>
+            <if test="stu_paper_status !=null">
+                #{stu_paper_status,jdbcType=INT},
+            </if>
+            <if test="stu_paper_submit_time_start !=null">
+                #{stu_paper_submit_time_start,jdbcType=TIMESTAMP},
+            </if>
+            <if test="stu_paper_submit_time_over !=null">
+                #{stu_paper_submit_time_over,jdbcType=TIMESTAMP},
+            </if>
+            <if test="stu_tch_id !=null">
+                #{stu_tch_id,jdbcType=INT},
+            </if>
+            <if test="stu_admin_id !=null">
+                #{stu_admin_id,jdbcType=INT},
+            </if>
+            <if test="tch_job_title !=null">
+                #{tch_job_title,jdbcType=VARCHAR},
+            </if>
+            <if test="tch_department !=null">
+                #{tch_department,jdbcType=VARCHAR},
+            </if>
+            <if test="tch_office_phone !=null">
+                #{tch_office_phone,jdbcType=VARCHAR},
+            </if>
+            <if test="tch_work_place !=null">
+                #{tch_work_place,jdbcType=VARCHAR},
+            </if>
+            <if test="tch_paper_review_time_start !=null">
+                #{tch_paper_review_time_start,jdbcType=VARCHAR},
+            </if>
+            <if test="tch_paper_review_time_over !=null">
+                #{tch_paper_review_time_over,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <!--int updateUserInfo(UserInfo userInfo);-->
+    <update id="updateUserInfo" parameterType="UserInfo">
+        UPDATE i_user_info
+        <set>
+            <if test="user_id !=null">
+                user_id = #{user_id,jdbcType=BIGINT},
+            </if>
+            <if test="real_name !=null">
+                real_name = #{real_name,jdbcType=VARCHAR},
+            </if>
+            <if test="place !=null">
+                place = #{place,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="create_time !=null">
+                create_time = #{create_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="create_person_id !=null">
+                create_person_id = #{create_person_id,jdbcType=BIGINT},
+            </if>
+            <if test="last_login_time !=null">
+                last_login_time = #{last_login_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="stu_review_no !=null">
+                stu_review_no = #{stu_review_no,jdbcType=VARCHAR},
+            </if>
+            <if test="stu_paper_status !=null">
+                stu_paper_status = #{stu_paper_status,jdbcType=INT},
+            </if>
+            <if test="stu_paper_submit_time_start !=null">
+                stu_paper_submit_time_start = #{stu_paper_submit_time_start,jdbcType=TIMESTAMP},
+            </if>
+            <if test="stu_paper_submit_time_over !=null">
+                stu_paper_submit_time_over = #{stu_paper_submit_time_over,jdbcType=TIMESTAMP},
+            </if>
+            <if test="stu_tch_id !=null">
+                stu_tch_id = #{stu_tch_id,jdbcType=INT},
+            </if>
+            <if test="stu_admin_id !=null">
+                stu_admin_id = #{stu_admin_id,jdbcType=INT},
+            </if>
+            <if test="tch_job_title !=null">
+                tch_job_title = #{tch_job_title,jdbcType=VARCHAR},
+            </if>
+            <if test="tch_department !=null">
+                tch_department = #{tch_department,jdbcType=VARCHAR},
+            </if>
+            <if test="tch_office_phone !=null">
+                tch_office_phone = #{tch_office_phone,jdbcType=VARCHAR},
+            </if>
+            <if test="tch_work_place !=null">
+                tch_work_place = #{tch_work_place,jdbcType=VARCHAR},
+            </if>
+            <if test="tch_paper_review_time_start !=null">
+                tch_paper_review_time_start = #{tch_paper_review_time_start,jdbcType=VARCHAR},
+            </if>
+            <if test="tch_paper_review_time_over !=null">
+                tch_paper_review_time_over = #{tch_paper_review_time_over,jdbcType=VARCHAR},
+            </if>
+        </set>
+        WHERE user_id = #{user_id}
+    </update>
+
+
+    <update id="deleteUserInfo" parameterType="UserInfo">
+        UPDATE i_user SET state = 0 WHERE id = #{user_id}
+    </update>
+    <!--int deleteUserInfo(UserInfo userInfo);-->
+
+    <select id="selectUserInfoByUserId" parameterType="Long">
+        SELECT * FROM i_user_info WHERE user_id = #{user_id}
+    </select>
+    <!--UserInfo selectUserInfoByUserId(int user_id);-->
+
+    <select id="countUserInfos" parameterType="UserInfo">
+        SELECT count(*) FROM i_user_info
+    </select>
+    <!--int countUserInfos(UserInfo userInfo);-->
+
+    <!--List<UserInfo> selectUserInfos(UserInfo userInfo);-->
+
+    <!--List<UserInfo> selectUserInfosByPage(Map<String,Object> map);-->
+
+
+</mapper>

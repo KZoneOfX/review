@@ -12,6 +12,8 @@
     http://www.springframework.org/schema/cache/spring-cache.xsd
     http://www.springframework.org/schema/aop
     http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 自动扫描(自动注入)，扫描 Review 这个包以及它的子包的所有使用@Service注解标注的类 -->
     <context:component-scan base-package="Review"></context:component-scan>
 
     <!-- 引入配置文件 -->
@@ -85,7 +87,7 @@
 
     <!-- 事务 aop 配置 -->
     <aop:config>
-        <aop:pointcut id="serviceMethods" expression="execution(* Review.*.*(..))"/>
+        <aop:pointcut id="serviceMethods" expression="execution(* Review.*.*.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods"/>
     </aop:config>
 

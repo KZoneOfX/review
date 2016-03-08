@@ -14,13 +14,6 @@ package Review.r_basic.r_b_user;
  *
  *
  *
-// <!-- 对insert,update,delete 开头的方法进行事务管理,只要有异常就回滚 -->
-// <tx:method name="insert*" propagation="REQUIRED" rollback-for="java.lang.Throwable"/>
-// <tx:method name="update*" propagation="REQUIRED" rollback-for="java.lang.Throwable"/>
-// <tx:method name="delete*" propagation="REQUIRED" rollback-for="java.lang.Throwable"/>
-// <!-- select,count开头的方法,开启只读,提高数据库访问性能 -->
-// <tx:method name="select*" read-only="true"/>
-// <tx:method name="count*" read-only="true"/>
  */
 public interface UserMapper {
     /**

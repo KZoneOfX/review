@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="jquery-1.12.1.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#lobtn").bind("click", function () {
+                $("p").slideToggle();
+            });
+        });
+    </script>
+</head>
+<body>
+<p>This is a paragraph.</p>
+<button id="lobtn">请点击这里</button>
+</body>
+</html>
