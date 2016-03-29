@@ -8,7 +8,7 @@
  #################################################################*/
 
 //Theme Variables - edit these to match your theme
-var imagesPath = "img/";
+var imagesPath = "appResource/img/";
 var selectRightWidthSimple = 19;
 var selectRightWidthScroll = 2;
 var selectMaxHeight = 200;

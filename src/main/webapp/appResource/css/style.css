@@ -51,8 +51,10 @@ a.forgot_pass {
 }
 
 .header {
+    text-align: center;
+    margin: 0 auto;
     width: 1200px;
-    height: 100px;
+    height: 80px;
 }
 
 .header_login {
@@ -105,15 +107,17 @@ a.forgot_pass {
 .main_content {
     margin: 0 auto;
     width: 1200px;
-    height: 440px;;
+    height: 430px;;
     padding: 0px 0 50px 0;
     background: url(../images/menu_bg.jpg) no-repeat center top #fff;
 }
 
 .footer {
-    width: 900px;
+    text-align: center;
+    margin: auto;
+    width: 1200px;
     height: 87px;
-    background: url(images/footer_bg.jpg) no-repeat center top;
+    background: url(../images/footer_bg.jpg) no-repeat center top;
 }
 
 .footer_login {

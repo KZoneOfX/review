@@ -4,7 +4,37 @@
     <!-- 通过角色id 查询角色 拥有的权限 -->
     <select id="selectPermissionsByRoleId" parameterType="java.lang.Long" resultType="Permission">
         SELECT p.* FROM i_permission p LEFT JOIN i_role_permission rp ON rp.permission_id = p.id
-        WHERE rp.role_id =
-        #{id,jdbcType=BIGINT}
+        WHERE rp.role_id = #{id,jdbcType=BIGINT}
     </select>
+
+    <!--  -->
+    <select id="selectAllPermissions" resultType="Permission">
+        SELECT p.*
+        FROM i_permission p
+    </select>
+
+    <insert id="insertPermission" parameterType="Permission">
+        INSERT INTO i_permission (pid, name, permission_sign, description, url, state, is_parent)
+        VALUES (#{pId}, #{name}, #{permission_sign}, #{description}, #{url}, #{state}, #{is_parent})
+    </insert>
+
+    <update id="deletePermission" parameterType="Permission">
+        UPDATE i_permission
+        SET state = 0
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectPermissionsByParentId" parameterType="Permission" resultType="Permission">
+        SELECT *
+        FROM i_permission
+        WHERE pId = #{permission_id}
+    </select>
+
+    <select id="selectPermissionsById" parameterType="Permission" resultType="Permission">
+        SELECT *
+        FROM i_permission
+        WHERE id = #{permission_id}
+    </select>
+
+
 </mapper>

@@ -205,8 +205,10 @@
     </update>
     <!--int deleteUserInfo(UserInfo userInfo);-->
 
-    <select id="selectUserInfoByUserId" parameterType="Long">
-        SELECT * FROM i_user_info WHERE user_id = #{user_id}
+    <select id="selectUserInfoByUserId" parameterType="Long" resultType="UserInfo">
+        SELECT iuf.*,iu.username AS username ,iu.password AS password,ir.description AS role_description
+        FROM i_user_info iuf,i_user iu,i_role ir,i_user_role iur
+        WHERE iuf.user_id = #{user_id} AND iu.id = iuf.user_id AND iur.user_id = iu.id AND iur.role_id = ir.id
     </select>
     <!--UserInfo selectUserInfoByUserId(int user_id);-->
 

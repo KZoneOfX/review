@@ -52,9 +52,9 @@
                                        value="${userInfo.real_name}" disabled="disabled"/></dd>
                         </dl>
                         <dl>
-                            <dt><label for="stu_no">学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号:</label>
+                            <dt><label for="username">账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号:</label>
                             </dt>
-                            <dd><input type="text" name="stu_no" id="stu_no" size="54" value="${userInfo.user_id }"
+                            <dd><input type="text" name="username" id="username" size="54" value="${userInfo.user_id }"
                                        disabled="disabled"/></dd>
                         </dl>
                         <dl>
@@ -80,8 +80,15 @@
                             <dd><input type="text" name="tch_job_title" id="tch_job_title" size="54"
                                        value="${userInfo.tch_job_title }" disabled="disabled"/></dd>
                         </dl>
+
                         <dl>
                             <dt><label for="tch_department">部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;门:</label>
+                            </dt>
+                            <dd><input type="text" name="tch_department" id="tch_department" size="54"
+                                       value="${userInfo.tch_department }" disabled="disabled"/></dd>
+                        </dl>
+                        <dl>
+                            <dt><label for="tch_department">身&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;份:</label>
                             </dt>
                             <dd><input type="text" name="tch_department" id="tch_department" size="54"
                                        value="${userInfo.tch_department }" disabled="disabled"/></dd>

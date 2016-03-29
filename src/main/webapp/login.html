@@ -35,23 +35,29 @@
 
 <script type="text/javascript" src="appResource/KZone/js/jquery/jquery-1.12.1.js"></script>
 <script type="text/javascript" src="appResource/KZone/js/jquery/jquery.md5.js"></script>
+
 <script type="text/javascript">
+    var login_tip_div = $("#login_tip_div");
+    function show_login_tip_div(msg) {
+        login_tip_div.text(msg);
+        login_tip_div.css('display', 'block');
+        login_tip_div.css('color', 'red');
+        login_tip_div.css('font-weight', 'bold');
+    }
+
     $(document).ready(function () {
         $("#username").bind("focus", function () {
-            $("#login_tip_div").css('display', 'none');
+            login_tip_div.css('display', 'none');
         });
         $("#password").bind("focus", function () {
-            $("#login_tip_div").css('display', 'none');
+            login_tip_div.css('display', 'none');
         });
 
         $("#loginBtn").bind("click", function () {
             var username = $("#username").val();
             var password = $("#password").val();
             if (username.length == 0 || password.length == 0) {
-                $("#login_tip_div").text("账号密码不能为空！");
-                $("#login_tip_div").css('display', 'block');
-                $("#login_tip_div").css('color', 'red');
-                $("#login_tip_div").css('font-weight', 'bold');
+                show_login_tip_div("账号密码不能为空！");
             } else {
                 var md5_password = $.md5(username + password);
                 $.ajax({
@@ -63,20 +69,22 @@
                         "password": md5_password
                     },
                     success: function (data) {
-                        console.log(data);
-                        //TODO 验证登录是否成功 以及 相关页面的跳转
-
-//                        var result = data.get
-                        console.log(data.result);
-                        alert(data.result);
-                        window.location.href = 'rest/index';
+                        var map = eval("(" + data + ")");
+                        var result = map["result"];
+                        if (result == "yes") {
+                            window.location.href = 'rest/index';
+                        } else {
+                            var wrong = map["error"];
+                            show_login_tip_div(wrong);
+                        }
                     },
                     error: function (a, b, v) {
                         if (v == "Not Found") {
-                            alert("您请求的地址不存在");
+                            show_login_tip_div("您请求的地址不存在");
 
                         } else if (b == "timeout") {
-                            alert("请求超时");
+                            show_login_tip_div("登录超时");
+                            alert("");
                         } else {
 //                        alert("wrong");
                         }

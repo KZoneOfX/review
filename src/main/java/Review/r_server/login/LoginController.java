@@ -2,7 +2,9 @@ package Review.r_server.login;
 
 import Review.r_basic.r_b_user.User;
 import Review.r_basic.r_b_user.UserService;
+import Review.r_server.userInfo.UserInfo;
 import Review.r_server.userInfo.UserInfoService;
+import com.sun.deploy.net.HttpResponse;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -50,42 +52,43 @@ public class LoginController {
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> login(@Valid User user, BindingResult result, Model model, HttpServletRequest request) {
-        Map<String, String> responceJSON = new HashMap<String, String>();
+        Map<String, String> responseJSON = new HashMap<String, String>();
         logger.info("login user" + user.getUsername());
         try {
             Subject subject = SecurityUtils.getSubject();
 
             //如果已登陆，则调到主页
             if (subject.isAuthenticated()){
-                responceJSON.put("result", "yes");
-                return responceJSON;
+                responseJSON.put("result", "yes");
+                return responseJSON;
             }
             if (result.hasErrors()){
-                responceJSON.put("result", "no");
-                responceJSON.put("error", "参数错误!");
-                return responceJSON;
+                responseJSON.put("result", "no");
+                responseJSON.put("error", "参数错误!");
+                return responseJSON;
             }
             //身份验证
             subject.login(new UsernamePasswordToken(user.getUsername(), user.getPassword()));
             final User authUserInfo = userService.selectByUsername(user.getUsername());
-//            UserInfo userInfo = userInfoService.selectUserInfoByUserId(user.getId());
-//            System.out.println(userInfo.toString());
+            UserInfo userInfo = userInfoService.selectUserInfoByUserId(authUserInfo.getId());
 
-            request.getSession().setAttribute("userInfo",authUserInfo);
-//            request.getSession().setAttribute("userInfo",userInfo);
+            System.out.println(userInfo.toString());
+
+//            request.getSession().setAttribute("userInfo",authUserInfo);
+            request.getSession().setAttribute("userInfo", userInfo);
         } catch (AuthenticationException e){
             // 身份验证失败
 
-            responceJSON.put("result", "no");
-//            responceJSON.put("Exception:",e.toString());
+            responseJSON.put("result", "no");
+//            responseJSON.put("Exception:",e.toString());
 //            System.out.println("e.getLocalizedMessage()\t"+e.getLocalizedMessage());
 //            System.out.println("e.getMessage()\t"+e.getMessage());
 //            System.out.println("e.getCause()\t"+e.getCause());
-            responceJSON.put("error", "用户名或密码错误!");
-            return responceJSON;
+            responseJSON.put("error", "用户名或密码错误!");
+            return responseJSON;
         }
-        responceJSON.put("result", "yes");
-        return responceJSON;
+        responseJSON.put("result", "yes");
+        return responseJSON;
     }
 
     /**
@@ -94,13 +97,15 @@ public class LoginController {
      */
     @RequestMapping(value = "/logout",method = RequestMethod.GET)
     @ResponseBody
-    public String logout(HttpSession session){
-        User user = (User) session.getAttribute("userInfo");
-        logger.info("user :" + user.getUsername() + " Logout!");
+    public Map<String, String> logout(HttpSession session) {
+        Map<String, String> responseJSON = new HashMap<String, String>();
+        UserInfo user = (UserInfo) session.getAttribute("userInfo");
+        logger.info("user :" + user.getReal_name() + " Logout!");
         session.removeAttribute("userInfo");
         Subject subject=SecurityUtils.getSubject();
         subject.logout();
-        return "redirect:/welcome";
+        responseJSON.put("result", "yes");
+        return responseJSON;
     }
 //
 //    /**

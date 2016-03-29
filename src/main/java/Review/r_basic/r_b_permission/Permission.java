@@ -12,36 +12,28 @@ import java.io.Serializable;
 public class Permission implements Serializable{
     private static final long serialVersionUID = 8929915949700749832L;
 
-    private Long permission_id;
+    private Long id;
 
-    private String permissionName;
+    private Long pId;
 
-    private String permissionSign;
+    private String name;
+
+    private int state;
+
+    private int is_parent;
+
+    private String permission_sign;
 
     private String description;
 
-    public Long getPermission_id() {
-        return permission_id;
+    private String url;
+
+    public String getUrl() {
+        return url;
     }
 
-    public void setPermission_id(Long permission_id) {
-        this.permission_id = permission_id;
-    }
-
-    public String getPermissionName() {
-        return permissionName;
-    }
-
-    public void setPermissionName(String permissionName) {
-        this.permissionName = permissionName;
-    }
-
-    public String getPermissionSign() {
-        return permissionSign;
-    }
-
-    public void setPermissionSign(String permissionSign) {
-        this.permissionSign = permissionSign;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getDescription() {
@@ -52,13 +44,65 @@ public class Permission implements Serializable{
         this.description = description;
     }
 
+    public String getPermission_sign() {
+        return permission_sign;
+    }
+
+    public void setPermission_sign(String permission_sign) {
+        this.permission_sign = permission_sign;
+    }
+
+    public int getIs_parent() {
+        return is_parent;
+    }
+
+    public void setIs_parent(int is_parent) {
+        this.is_parent = is_parent;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Long getpId() {
+        return pId;
+    }
+
+    public void setpId(Long pId) {
+        this.pId = pId;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "Permission{" +
-                "permission_id=" + permission_id +
-                ", permissionName='" + permissionName + '\'' +
-                ", permissionSign='" + permissionSign + '\'' +
+                "id=" + id +
+                ", pId=" + pId +
+                ", name='" + name + '\'' +
+                ", state=" + state +
+                ", is_parent=" + is_parent +
+                ", permission_sign='" + permission_sign + '\'' +
                 ", description='" + description + '\'' +
+                ", url='" + url + '\'' +
                 '}';
     }
 }

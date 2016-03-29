@@ -24,4 +24,8 @@ public class PermissionServiceImpl implements PermissionService{
     public List<Permission> selectPermissionsByRoleId(Long roleId) {
         return permissionMapper.selectPermissionsByRoleId(roleId);
     }
+
+    public List<Permission> selectAllPermissions() {
+        return permissionMapper.selectAllPermissions();
+    }
 }

@@ -20,4 +20,10 @@ public interface PermissionMapper {
     List<Permission> selectPermissionsByRoleId(Long roleId);
 
 
+    /**
+     * 获取全部权限
+     *
+     * @return
+     */
+    List<Permission> selectAllPermissions();
 }

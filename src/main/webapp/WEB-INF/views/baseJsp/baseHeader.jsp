@@ -12,6 +12,6 @@
     <a href="rest/index"><img src="appResource/images/article.png" style="width:100%;height:100%;"></a>
 </div>
 <div class="right_header">
-    您好！ ${loginUser.manager_name }| <a href="rest/logout" class="logout">退出</a>
+    您好！ ${userInfo.real_name }| <a id="logout" class="logout">退出</a>
 </div>
 <div id="clock_a"></div>

@@ -27,6 +27,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     public UserInfo selectUserInfoByUserId(Long user_id) {
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!  userid: " + user_id);
         return userInfoMapper.selectUserInfoByUserId(user_id);
     }
 

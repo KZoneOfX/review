@@ -56,7 +56,7 @@
         <ul>
             <li><a href="rest/paper_submit_set">用户管理</a></li>
             <li><a href="rest/paper_teacher_set">角色管理</a></li>
-            <li><a href="rest/email_set">权限管理</a></li>
+            <li><a href="rest/permission">权限管理</a></li>
         </ul>
     </div>
 </div>

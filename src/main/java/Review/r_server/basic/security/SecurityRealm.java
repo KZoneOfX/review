@@ -62,7 +62,7 @@ public class SecurityRealm extends AuthorizingRealm {
             for (Permission permission : permissions) {
                 // 添加权限
                 System.err.println(permission);
-                authorizationInfo.addStringPermission(permission.getPermissionSign());
+                authorizationInfo.addStringPermission(permission.getPermission_sign());
             }
             logger.info(permissions.toString());
         }

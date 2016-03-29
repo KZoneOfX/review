@@ -1,7 +1,7 @@
 .login_form {
     width: 600px;
     height: 250px;
-    background: url(/appResource/images/login_bg.png) no-repeat center top;
+    background: url(../images/login_bg.png) no-repeat center top;
     margin: 20px 0 0 145px;
     float: left;
     padding: 0px 0 0 0px;
@@ -74,7 +74,7 @@ label.check_label {
 .NFTextCenter {
     height: 26px;
     width: auto;
-    background: url(/appResource/img/input.gif) repeat-x 0 0;
+    background: url(../img/input.gif) repeat-x 0 0;
     padding: 8px 0 0 0;
     margin: 0;
     float: left;
@@ -89,11 +89,11 @@ label.check_label {
 }
 
 .NFTextLeft {
-    background: url(/appResource/img/input-left.gif) no-repeat 0 0;
+    background: url(../img/input-left.gif) no-repeat 0 0;
 }
 
 .NFTextRight {
-    background: url(/appResource/img/input-right.gif) no-repeat 0 0;
+    background: url(../img/input-right.gif) no-repeat 0 0;
 }
 
 /*Radio*/
@@ -104,7 +104,7 @@ label.check_label {
     width: 20px;
     height: 20px;
     border: 1px solid transparent;
-    background: url(/appResource/img/radio.gif) no-repeat 0 0;
+    background: url(../img/radio.gif) no-repeat 0 0;
     z-index: 2;
 }
 
@@ -116,7 +116,7 @@ label.check_label {
     margin: 0px 0 0 0;
     height: 20px;
     border: 1px solid transparent;
-    background: url(/appResource/img/checkbox.gif) no-repeat 0 0;
+    background: url(../img/checkbox.gif) no-repeat 0 0;
     z-index: 2;
 }
 
@@ -126,7 +126,7 @@ label.check_label {
     height: 34px;
     padding: 0 15px;
     font-weight: bold;
-    background: url(/appResource/img/button.gif) repeat-x 0 0;
+    background: url(../img/button.gif) repeat-x 0 0;
     cursor: pointer;
     border: none;
     color: #FFFFFF;
@@ -141,11 +141,11 @@ label.check_label {
 }
 
 .NFButtonLeft {
-    background: url(/appResource/img/button-left.gif) no-repeat 0 0;
+    background: url(../img/button-left.gif) no-repeat 0 0;
 }
 
 .NFButtonRight {
-    background: url(/appResource/img/button-right.gif) no-repeat 0 0;
+    background: url(../img/button-right.gif) no-repeat 0 0;
 }
 
 /*Textareas*/
@@ -164,11 +164,11 @@ label.check_label {
 }
 
 .NFTextareaTop {
-    background: url(/appResource/img/textarea-tr.gif) no-repeat 100% 0;
+    background: url(../img/textarea-tr.gif) no-repeat 100% 0;
 }
 
 .NFTextareaBottom {
-    background: url(/appResource/img/textarea-br.gif) no-repeat 100% 0;
+    background: url(../img/textarea-br.gif) no-repeat 100% 0;
     margin-bottom: 0px;
 }
 
@@ -178,11 +178,11 @@ label.check_label {
 }
 
 .NFTextareaTopLeft {
-    background: #f2f2e6 url(/appResource/img/textarea-tl.gif) no-repeat 0 0;
+    background: #f2f2e6 url(../img/textarea-tl.gif) no-repeat 0 0;
 }
 
 .NFTextareaBottomLeft {
-    background: #f2f2e6 url(/appResource/img/textarea-bl.gif) no-repeat 0 0;
+    background: #f2f2e6 url(../img/textarea-bl.gif) no-repeat 0 0;
 }
 
 .NFTextareaLeft, .NFTextareaRight, .NFTextareaLeftH, .NFTextareaRightH {
@@ -195,11 +195,11 @@ label.check_label {
 }
 
 .NFTextareaLeft {
-    background: url(/appResource/img/textarea-l-off.gif) repeat-y 0 0;
+    background: url(../img/textarea-l-off.gif) repeat-y 0 0;
 }
 
 .NFTextareaLeftH {
-    background: url(/appResource/img/textarea-l-over.gif) repeat-y 0 0;
+    background: url(../img/textarea-l-off.gif) repeat-y 0 0;
 }
 
 .NFTextareaRight, .NFTextareaRightH {
@@ -208,11 +208,11 @@ label.check_label {
 }
 
 .NFTextareaRight {
-    background: url(/appResource/img/textarea-r-off.gif) repeat-y 100% 0;
+    background: url(../img/textarea-r-off.gif) repeat-y 100% 0;
 }
 
 .NFTextareaRightH {
-    background: url(/appResource/img/textarea-r-off.gif) repeat-y 100% 100%;
+    background: url(../img/textarea-r-off.gif) repeat-y 100% 100%;
 }
 
 /*Files*/
@@ -220,7 +220,7 @@ label.check_label {
     padding-bottom: 0;
     vertical-align: bottom;
     cursor: pointer;
-    background: url(/appResource/img/file.gif) no-repeat 0 0;
+    background: url(../img/file.gif) no-repeat 0 0;
     width: 58px;
     height: 34px;
 }
@@ -257,14 +257,14 @@ label.check_label {
     float: left;
     width: 12px;
     height: 34px;
-    background: url(/appResource/img/select-left.gif) no-repeat 0 0;
+    background: url(../img/select-left.gif) no-repeat 0 0;
     vertical-align: middle;
 }
 
 .NFSelectRight {
     height: 34px;
     width: 310px;
-    background: url(/appResource/img/select-right.gif) no-repeat 100% 0;
+    background: url(../img/select-right.gif) no-repeat 100% 0;
     cursor: pointer;
     font: 12px/21px Arial, Helvetica, sans-serif;
     color: #000;
@@ -336,11 +336,11 @@ label.check_label {
 }
 
 .NFMultiSelectTop {
-    background: url(/appResource/img/textarea-tr.png) no-repeat 100% 0;
+    background: url(../img/textarea-tr.png) no-repeat 100% 0;
 }
 
 .NFMultiSelectBottom {
-    background: url(/appResource/img/textarea-br.png) no-repeat 100% 0;
+    background: url(../img/textarea-br.png) no-repeat 100% 0;
     margin-bottom: 5px;
 }
 
@@ -350,11 +350,11 @@ label.check_label {
 }
 
 .NFMultiSelectTopLeft {
-    background: #f2f2e6 url(/appResource/img/textarea-tl.png) no-repeat 0 0;
+    background: #f2f2e6 url(../img/textarea-tl.png) no-repeat 0 0;
 }
 
 .NFMultiSelectBottomLeft {
-    background: #f2f2e6 url(/appResource/img/textarea-bl.png) no-repeat 0 0;
+    background: #f2f2e6 url(../img/textarea-bl.png) no-repeat 0 0;
 }
 
 .NFMultiSelectLeft, .NFMultiSelectRight, .NFMultiSelectLeftH, .NFMultiSelectRightH {
@@ -367,11 +367,11 @@ label.check_label {
 }
 
 .NFMultiSelectLeft {
-    background: url(/appResource/img/textarea-l-off.png) repeat-y 0 0;
+    background: url(../img/textarea-l-off.png) repeat-y 0 0;
 }
 
 .NFMultiSelectLeftH {
-    background: url(/appResource/img/textarea-l-over.png) repeat-y 0 0;
+    background: url(../img/textarea-l-over.png) repeat-y 0 0;
 }
 
 .NFMultiSelectRight, .NFMultiSelectRightH {
@@ -380,11 +380,11 @@ label.check_label {
 }
 
 .NFMultiSelectRight {
-    background: url(/appResource/img/textarea-r-off.png) repeat-y 100% 0;
+    background: url(../img/textarea-r-off.png) repeat-y 100% 0;
 }
 
 .NFMultiSelectRightH {
-    background: url(/appResource/img/textarea-r-over.png) repeat-y 100% 0;
+    background: url(../img/textarea-r-over.png) repeat-y 100% 0;
 }
 
 /*Focused*/

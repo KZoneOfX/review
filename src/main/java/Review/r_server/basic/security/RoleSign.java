@@ -22,24 +22,29 @@ package Review.r_server.basic.security;
 public class RoleSign {
 
     /**
-     * 普通后台管理员 标识
+     * 开发人员
+     */
+    public static final String DEVELOPER = "developer";
+
+    /**
+     * 学院超级管理员
+     */
+    public static final String CONTROLLER = "controller";
+
+    /**
+     * 教学点管理员 标识
      */
     public static final String ADMIN = "admin";
 
     /**
-     * 客户经理 标识
+     * 教师 标识
      */
-    public static final String CONSULTANT = "consultant";
+    public static final String TEACHER = "teacher";
 
     /**
-     * VIP客户 标识
+     * 学生 标识
      */
-    public static final String VIP_USER = "vip_user";
-
-    /**
-     * 商家 标识
-     */
-    public static final String MERCHANT = "merchant";
+    public static final String STUDENT = "student";
 
     /**
      * 添加更多...

@@ -14,6 +14,12 @@ public class UserInfo implements Serializable {
     private static final long serialVersionUID = -2969823238981963912L;
     //用户 公有属性 start
     private Long user_id;
+
+
+    private String username;
+    private String password;
+    private String role_description;
+
     private String real_name;
     private String place;
     private String email;
@@ -64,6 +70,30 @@ public class UserInfo implements Serializable {
 
     public void setUser_id(Long user_id) {
         this.user_id = user_id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getrole_description() {
+        return role_description;
+    }
+
+    public void setrole_description(String role_description) {
+        this.role_description = role_description;
     }
 
     public String getReal_name() {
@@ -278,6 +308,9 @@ public class UserInfo implements Serializable {
     public String toString() {
         return "UserInfo{" +
                 "user_id=" + user_id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", role_description'" + role_description + '\'' +
                 ", real_name='" + real_name + '\'' +
                 ", place='" + place + '\'' +
                 ", email='" + email + '\'' +
@@ -310,6 +343,9 @@ public class UserInfo implements Serializable {
     public String toAdminString() {
         return "UserInfo{" +
                 "user_id=" + user_id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", role_description'" + role_description + '\'' +
                 ", real_name='" + real_name + '\'' +
                 ", place='" + place + '\'' +
                 ", email='" + email + '\'' +
@@ -326,6 +362,9 @@ public class UserInfo implements Serializable {
         return "UserInfo{" +
                 "std_admin_id=" + std_admin_id +
                 ", user_id=" + user_id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", role_description'" + role_description + '\'' +
                 ", real_name='" + real_name + '\'' +
                 ", place='" + place + '\'' +
                 ", email='" + email + '\'' +
@@ -349,6 +388,9 @@ public class UserInfo implements Serializable {
     public String toTchString() {
         return "UserInfo{" +
                 "user_id=" + user_id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", role_description'" + role_description + '\'' +
                 ", real_name='" + real_name + '\'' +
                 ", place='" + place + '\'' +
                 ", email='" + email + '\'' +
