@@ -39,4 +39,35 @@
             //do nothing
         }
     });
+    $(document).ready(function () {
+        $("#logout").bind("click", function () {
+            logout();
+        });
+    });
+    function logout() {
+        $.ajax({
+            type: "GET",
+            url: 'rest/logout',
+            success: function (data) {
+                var map = eval("(" + data + ")");
+                var result = map["result"];
+                if (result == "yes") {
+                    window.location.href = 'login.html';
+                } else {
+
+                }
+            },
+            error: function (a, b, v) {
+                if (v == "Not Found") {
+                    alert("您请求的地址不存在");
+
+                } else if (b == "timeout") {
+                    alert("请求超时");
+                } else {
+//                        alert("wrong");
+                }
+
+            }
+        });
+    }
 </script>
