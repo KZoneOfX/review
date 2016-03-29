@@ -50,6 +50,15 @@
         <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
     </bean>
 
+    <!--论文信息 管理 -->
+    <bean id="paperInfoService" class="Review.r_server.paperInfo.PaperInfoServiceImpl">
+        <property name="paperInfoMapper" ref="paperInfoMapper"/>
+    </bean>
+    <bean id="paperInfoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="Review.r_server.paperInfo.PaperInfoMapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+
 
     <!-- end by kzone -->
 

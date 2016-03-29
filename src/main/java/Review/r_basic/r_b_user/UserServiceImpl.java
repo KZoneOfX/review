@@ -27,4 +27,8 @@ public class UserServiceImpl implements UserService {
     public User selectByUsername(String username) {
         return userMapper.selectByUsername(username);
     }
+
+    public User selectById(Long id) {
+        return userMapper.selectById(id);
+    }
 }

@@ -11,5 +11,11 @@
         from i_user
         where username = #{username,jdbcType=VARCHAR} and password = #{password,jdbcType = VARCHAR}
     </select>
+    <select id="selectById" resultType="User" parameterType="Long">
+        select
+        *
+        from i_user
+        where id = #{id}
+    </select>
 
 </mapper>

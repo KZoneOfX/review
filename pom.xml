@@ -129,6 +129,12 @@
       <version>${mybatis-spring.version}</version>
     </dependency>
 
+    <!-- MyBatis 分页-->
+    <dependency>
+      <groupId>com.github.pagehelper</groupId>
+      <artifactId>pagehelper</artifactId>
+      <version>4.1.2</version>
+    </dependency>
 
     <!-- jdbc driver -->
     <dependency>

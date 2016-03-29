@@ -31,7 +31,8 @@
     <a class="menuitem submenuheader" href="">论文相关</a>
     <div class="submenu">
         <ul>
-            <li><a href="rest/paper_submit">论文提交</a></li>
+            <li><a href="rest/paperInfo">论文列表</a></li>
+            <li><a href="rest/paperInfo/submit">论文提交</a></li>
             <li><a href="rest/paper_review">论文评审</a></li>
         </ul>
     </div>

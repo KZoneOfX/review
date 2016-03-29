@@ -23,4 +23,6 @@ public interface UserService {
      * @return
      */
     User selectByUsername(String username);
+
+    User selectById(Long id);
 }

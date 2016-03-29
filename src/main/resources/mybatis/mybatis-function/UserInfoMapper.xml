@@ -201,19 +201,26 @@
 
 
     <update id="deleteUserInfo" parameterType="UserInfo">
-        UPDATE i_user SET state = 0 WHERE id = #{user_id}
+        UPDATE i_user
+        SET state = 0
+        WHERE id = #{user_id}
     </update>
     <!--int deleteUserInfo(UserInfo userInfo);-->
 
     <select id="selectUserInfoByUserId" parameterType="Long" resultType="UserInfo">
-        SELECT iuf.*,iu.username AS username ,iu.password AS password,ir.description AS role_description
-        FROM i_user_info iuf,i_user iu,i_role ir,i_user_role iur
+        SELECT
+        iuf.*,
+        iu.username AS username,
+        iu.password AS password,
+        ir.description AS role_description
+        FROM i_user_info iuf, i_user iu, i_role ir, i_user_role iur
         WHERE iuf.user_id = #{user_id} AND iu.id = iuf.user_id AND iur.user_id = iu.id AND iur.role_id = ir.id
     </select>
     <!--UserInfo selectUserInfoByUserId(int user_id);-->
 
     <select id="countUserInfos" parameterType="UserInfo">
-        SELECT count(*) FROM i_user_info
+        SELECT count(*)
+        FROM i_user_info
     </select>
     <!--int countUserInfos(UserInfo userInfo);-->
 
