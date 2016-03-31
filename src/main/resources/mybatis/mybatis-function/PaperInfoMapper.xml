@@ -19,7 +19,7 @@
         FROM
             i_paper
         WHERE
-            i_paper.user_id = #{user_id}
+        i_paper.user_id = #{user_id} AND i_paper.state = 1
     </select>
 
     <select id="selectPaperInfoByPaperId" parameterType="String" resultType="PaperInfo">
@@ -37,7 +37,7 @@
         FROM
             i_paper
         WHERE
-            i_paper.id = #{id}
+        i_paper.id = #{id} AND i_paper.state = 1
     </select>
 
     <select id="selectPaperInfoList" resultType="PaperInfo" parameterType="PaperInfo">

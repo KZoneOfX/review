@@ -7,9 +7,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +15,8 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -53,36 +53,41 @@ public class PaperInfoController {
      * @param submit_paper_file
      * @param httpServletRequest
      * @param submit_paper_name
-     * @param model
      * @return
      * @throws IOException
      */
     @RequestMapping(value = "submit", method = RequestMethod.POST)
-    public String submit(@RequestParam("submit_paper_file") MultipartFile submit_paper_file,
-                         HttpServletRequest httpServletRequest, String submit_paper_name, Model model) throws IOException {
+    @ResponseBody
+    public Map<String, String> submit(@RequestParam("submit_paper_file") MultipartFile submit_paper_file,
+                                      HttpServletRequest httpServletRequest, String submit_paper_name) throws IOException {
         UserInfo userInfo = (UserInfo) httpServletRequest.getSession().getAttribute("userInfo");
+        Map<String, String> msg = new HashMap<String, String>();
         if (submit_paper_file.isEmpty() || submit_paper_name.equals("") || submit_paper_file == null) {
             logger.info("user:" + userInfo.getReal_name() + "\t submit empty paper ");
-            model.addAttribute("msg", "提交信息，不得为空");
+            msg.put("result", "0");
+            msg.put("tip", "提交信息，不得为空");
         } else if (!(submit_paper_file.getOriginalFilename().endsWith(".pdf")
                 || submit_paper_file.getOriginalFilename().endsWith(".doc")
                 || submit_paper_file.getOriginalFilename().endsWith(".docx"))) {
             logger.info("user:" + userInfo.getReal_name() + "\t submit error format paper ");
-            model.addAttribute("msg", "网站只允许提交pdf、doc、docx格式论文，其他格式论文，请转换格式后，重新提交");
+            msg.put("result", "0");
+            msg.put("tip", "网站只允许提交pdf、doc、docx格式论文，其他格式论文，请转换格式后，重新提交");
         } else {
 
-            PaperInfo paperInfo = new PaperInfo();
             String paper_path = httpServletRequest.getSession().getServletContext().getRealPath("/serverFile/paper")
                     + "\\" + userService.selectById(userInfo.getUser_id()).getUsername()
                     + "_" + userInfo.getReal_name() + "_" + submit_paper_file.getOriginalFilename();
 
             File file;
-            if (paperInfoService.selectPaperInfoByUserId(userInfo.getUser_id()) != null) {
-                file = new File(paperInfoService.selectPaperInfoByUserId(userInfo.getUser_id()).getPaper_path());
+            PaperInfo paperInfo = paperInfoService.selectPaperInfoByUserId(userInfo.getUser_id());
+            if (paperInfo != null) {
+                file = new File(paperInfo.getPaper_path());
+                paperInfoService.deletePaperInfo(paperInfo);
                 if (file.exists()) {
                     file.delete();
                 }
             }
+            paperInfo = new PaperInfo();
             file = new File(paper_path);
             FileUtils.copyInputStreamToFile(submit_paper_file.getInputStream(), file);//将上传的论文 copy到服务器中
 
@@ -93,7 +98,9 @@ public class PaperInfoController {
             paperInfo.setPaper_name(submit_paper_name);
             paperInfo.setState(1);
             paperInfo.setUser_id(userInfo.getUser_id());
+
             int success = paperInfoService.insertPaperInfo(paperInfo);
+
             if (success == 1) {
                 System.out.println("submit success!!!!");
             }
@@ -101,7 +108,10 @@ public class PaperInfoController {
             System.out.println("!!!!!!!!!!!" + paper_path);
             System.out.println(httpServletRequest.getSession().getServletContext().getContextPath());
             logger.info("!@# post to submit.jsp");
+            msg.put("result", "1");
+            msg.put("tip", "上传成功");
         }
-        return "functionJsp/paperInfo/submit";
+        System.out.println(msg);
+        return msg;
     }
 }
