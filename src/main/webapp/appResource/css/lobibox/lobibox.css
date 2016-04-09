@@ -295,7 +295,7 @@ body.lobibox-open {
     overflow: hidden;
     display: table;
     position: relative;
-    width: 93.5%;
+    /*width: 93.5%;*/
     padding: 15px 20px;
     background-color: rgba(255, 255, 255, 0.98);
     font-size: 16px;

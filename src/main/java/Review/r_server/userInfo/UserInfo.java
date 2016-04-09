@@ -1,5 +1,7 @@
 package Review.r_server.userInfo;
 
+import Review.r_basic.r_b_user.User;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -46,10 +48,11 @@ public class UserInfo implements Serializable {
     private String stu_paper_submit_time_over_string;
 
     private Long stu_tch_id;
+    private String stu_tch_name;
     /**
      * 学生管理员 id 必须与 学生所属 教学点 相对应
      */
-    private Long std_admin_id;
+    private Long stu_admin_id;
     //学生 私有属性 end
 
     //教师 私有属性 start
@@ -232,12 +235,20 @@ public class UserInfo implements Serializable {
         this.stu_tch_id = stu_tch_id;
     }
 
-    public Long getStd_admin_id() {
-        return std_admin_id;
+    public String getStu_tch_name() {
+        return stu_tch_name;
     }
 
-    public void setStd_admin_id(Long std_admin_id) {
-        this.std_admin_id = std_admin_id;
+    public void setStu_tch_name(String stu_tch_name) {
+        this.stu_tch_name = stu_tch_name;
+    }
+
+    public Long getStu_admin_id() {
+        return stu_admin_id;
+    }
+
+    public void setStu_admin_id(Long stu_admin_id) {
+        this.stu_admin_id = stu_admin_id;
     }
 
     public String getTch_job_title() {
@@ -328,7 +339,7 @@ public class UserInfo implements Serializable {
                 ", stu_paper_submit_time_over=" + stu_paper_submit_time_over +
                 ", stu_paper_submit_time_over_string='" + stu_paper_submit_time_over_string + '\'' +
                 ", stu_tch_id=" + stu_tch_id +
-                ", std_admin_id=" + std_admin_id +
+                ", stu_admin_id=" + stu_admin_id +
                 ", tch_job_title='" + tch_job_title + '\'' +
                 ", tch_department='" + tch_department + '\'' +
                 ", tch_office_phone='" + tch_office_phone + '\'' +
@@ -360,7 +371,7 @@ public class UserInfo implements Serializable {
 
     public String toStuString() {
         return "UserInfo{" +
-                "std_admin_id=" + std_admin_id +
+                "stu_admin_id=" + stu_admin_id +
                 ", user_id=" + user_id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
@@ -382,6 +393,7 @@ public class UserInfo implements Serializable {
                 ", stu_paper_submit_time_over=" + stu_paper_submit_time_over +
                 ", stu_paper_submit_time_over_string='" + stu_paper_submit_time_over_string + '\'' +
                 ", stu_tch_id=" + stu_tch_id +
+                ", stu_tch_name=\'" + stu_tch_name + "\'" +
                 '}';
     }
 

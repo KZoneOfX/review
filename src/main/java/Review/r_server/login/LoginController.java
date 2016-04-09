@@ -72,18 +72,11 @@ public class LoginController {
             final User authUserInfo = userService.selectByUsername(user.getUsername());
             UserInfo userInfo = userInfoService.selectUserInfoByUserId(authUserInfo.getId());
 
-            System.out.println(userInfo.toString());
-
-//            request.getSession().setAttribute("userInfo",authUserInfo);
             request.getSession().setAttribute("userInfo", userInfo);
         } catch (AuthenticationException e){
             // 身份验证失败
 
             responseJSON.put("result", "no");
-//            responseJSON.put("Exception:",e.toString());
-//            System.out.println("e.getLocalizedMessage()\t"+e.getLocalizedMessage());
-//            System.out.println("e.getMessage()\t"+e.getMessage());
-//            System.out.println("e.getCause()\t"+e.getCause());
             responseJSON.put("error", "用户名或密码错误!");
             return responseJSON;
         }

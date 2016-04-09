@@ -1,7 +1,11 @@
 package Review.r_server.paperInfo;
 
+import Review.r_basic.r_b_user.User;
 import Review.r_basic.r_b_user.UserService;
 import Review.r_server.userInfo.UserInfo;
+import Review.r_server.userInfo.UserInfoService;
+import Review.r_util.FileToZip;
+import Review.r_util.R_FileUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +15,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -34,6 +35,8 @@ public class PaperInfoController {
     private PaperInfoService paperInfoService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserInfoService userInfoService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String paperInfo() {
@@ -46,6 +49,66 @@ public class PaperInfoController {
         logger.info("!@#  get to submit.jsp");
         return "functionJsp/paperInfo/submit";
     }
+
+    @RequestMapping(value = "downLoadZip", method = RequestMethod.POST)
+    @ResponseBody
+    public void downLoadZip(String select, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        UserInfo userInfo = (UserInfo) request.getSession().getAttribute("userInfo");
+        String base_path = request.getSession().getServletContext().getRealPath("/");
+        logger.info("!@#  " + userInfo.getReal_name() + "prepare to download the paper zip");
+        Map<String, String> msg = new HashMap<String, String>();
+        System.out.println(select);
+        String[] arr = select.split("\\D");
+
+        String folder_name = "[" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "]";
+        String folder_path = base_path + "serverFile/paper/ZipFiles/" + "[" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "]";
+
+        File folder = new File(folder_path);
+        System.out.println("folder_path:::::" + folder_path);
+        if (!folder.exists() && !folder.isDirectory()) {
+            System.out.println("//不存在");
+            folder.mkdir();
+        } else {
+            System.out.println("//目录存在::" + folder_path);
+        }
+        for (int i = 0; i < arr.length; i++) {
+            if (!arr[i].equals("")) {
+                User user = userService.selectByUsername(arr[i]);
+                System.out.println(user);
+                PaperInfo paperInfo = paperInfoService.selectPaperInfoByUserId(user.getId());
+                System.out.println(paperInfo);
+
+
+                String suffix = R_FileUtils.getFileSufix(paperInfo.getPaper_path());
+                String target_file_name = user.getUsername() + "_" + paperInfo.getPaper_name() + "." + suffix;
+                File paper_file = new File(base_path + paperInfo.getPaper_path());
+                File zip_paper_file = new File(folder_path + "/" + target_file_name);
+                if (paper_file.exists() && !zip_paper_file.exists()) {
+                    System.out.println("paper_file  exits");
+                    R_FileUtils.copyFile(base_path + paperInfo.getPaper_path(), folder_path + "/" + target_file_name);
+                }
+            }
+        }
+        if (FileToZip.fileToZip(folder_path, base_path + "serverFile/paper/ZipFiles/", folder_name, folder_name)) {
+            String zip_path = base_path + "serverFile\\paper\\ZipFiles\\" + folder_name + ".zip";
+
+            System.out.println("!!!!!!!!!!!!!!" + zip_path);
+            if (R_FileUtils.fileDowmLoad(zip_path, folder_name + ".zip", response)) {
+                logger.info("!@#：" + userInfo.getReal_name() + " download student paper  zip success!!!");
+            } else {
+                logger.info("!@#：" + userInfo.getReal_name() + " download student paper  zip failure!!!");
+
+            }
+            if (R_FileUtils.deleteDir(folder) && new File(zip_path).delete()) {
+                logger.info("!@#：" + userInfo.getReal_name() + " delete zip and folder   success!!!");
+            } else {
+                logger.info("!@#：" + userInfo.getReal_name() + " delete zip and folder   failure!!!");
+            }
+        } else {
+            logger.info("!@#：" + userInfo.getReal_name() + " compress papers to zip failure !!!");
+        }
+    }
+
 
     /**
      * TODO 判断 登陆者角色 判断是否是学生自己提交 还是 学校协助提交 需要考虑 提交者身份问题 、反馈信息 未显示
@@ -73,11 +136,10 @@ public class PaperInfoController {
             msg.put("result", "0");
             msg.put("tip", "网站只允许提交pdf、doc、docx格式论文，其他格式论文，请转换格式后，重新提交");
         } else {
-
-            String paper_path = httpServletRequest.getSession().getServletContext().getRealPath("/serverFile/paper")
-                    + "\\" + userService.selectById(userInfo.getUser_id()).getUsername()
+            String base_path = httpServletRequest.getSession().getServletContext().getRealPath("/");
+            String paper_path = "serverFile/paper/" + userInfo.getUsername()
                     + "_" + userInfo.getReal_name() + "_" + submit_paper_file.getOriginalFilename();
-
+            String file_path = base_path + paper_path;
             File file;
             PaperInfo paperInfo = paperInfoService.selectPaperInfoByUserId(userInfo.getUser_id());
             if (paperInfo != null) {
@@ -88,7 +150,7 @@ public class PaperInfoController {
                 }
             }
             paperInfo = new PaperInfo();
-            file = new File(paper_path);
+            file = new File(file_path);
             FileUtils.copyInputStreamToFile(submit_paper_file.getInputStream(), file);//将上传的论文 copy到服务器中
 
             paperInfo.setId(UUID.randomUUID().toString());
@@ -98,7 +160,8 @@ public class PaperInfoController {
             paperInfo.setPaper_name(submit_paper_name);
             paperInfo.setState(1);
             paperInfo.setUser_id(userInfo.getUser_id());
-
+            userInfo.setStu_paper_status(1);
+            userInfoService.updateUserInfo(userInfo);
             int success = paperInfoService.insertPaperInfo(paperInfo);
 
             if (success == 1) {
@@ -111,7 +174,6 @@ public class PaperInfoController {
             msg.put("result", "1");
             msg.put("tip", "上传成功");
         }
-        System.out.println(msg);
         return msg;
     }
 }

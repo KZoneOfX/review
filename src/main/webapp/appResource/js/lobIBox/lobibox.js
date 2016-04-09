@@ -668,7 +668,7 @@ var Lobibox = Lobibox || {};
 
     Lobibox.confirm.DEFAULTS = {
         title: 'Question',
-        width: 500,
+        width: 600,
         iconClass: 'glyphicon glyphicon-question-sign'
     };
 //------------------------------------------------------------------------------
@@ -994,8 +994,8 @@ var Lobibox = Lobibox || {};
     });
 
     Lobibox.window.DEFAULTS = {
-        width: 480,
-        height: 600,
+        width: 400,
+        height: 480,
         content: '',  // HTML Content of window
         url: '',  // URL which will be used to load content
         draggable: true,  // Override default option

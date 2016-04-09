@@ -1,5 +1,6 @@
 package Review.r_server.userInfo;
 
+import javax.jws.Oneway;
 import java.util.List;
 import java.util.Map;
 
@@ -19,10 +20,25 @@ public interface UserInfoService {
 
     UserInfo selectUserInfoByUserId(Long user_id);
 
-    int countUserInfos(UserInfo userInfo);
+    int countUserInfos(Map<String, Object> map);
+
+    int countStudents(Map<String, Object> map);
+
+    List<UserInfo> selectStudentList();
 
     List<UserInfo> selectUserInfos(UserInfo userInfo);
 
     List<UserInfo> selectUserInfosByPage(Map<String, Object> map);
+
+
+    /**
+     * 将excel中的数据，读取并导入到数据库中
+     *
+     * @param file_path
+     * @return
+     */
+    Map<String, Object> importStudentFromExcel(String file_path);
+
+    String ExportStudentIntoExcel(List<UserInfo> userInfoList);
 
 }

@@ -54,7 +54,7 @@ $(document).ready(function () {
                 $('div.tabs div.ajax').append(
                     '<code class="multiline brush: js;">' + str + '</code>'
                 );
-                SyntaxHighlighter.highlight({}, $('div.tabs div.ajax code')[0]);
+                //SyntaxHighlighter.highlight({}, $('div.tabs div.ajax code')[0]);
             };
 
             // First draw
@@ -89,7 +89,7 @@ $(document).ready(function () {
                         $('div.tabs div.php').append(
                             '<code class="multiline brush: php;">' + txt + '</code>'
                         );
-                        SyntaxHighlighter.highlight({}, $('div.tabs div.php code')[0]);
+                        //SyntaxHighlighter.highlight({}, $('div.tabs div.php code')[0]);
                     }
                 });
             }

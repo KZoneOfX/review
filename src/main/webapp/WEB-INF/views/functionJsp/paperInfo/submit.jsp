@@ -27,7 +27,6 @@
     <title>东北大学软件学院论文系统</title>
     <%@ include file="../../baseJsp/baseCss.jsp" %>
     <%@ include file="../../baseJsp/baesJs.jsp" %>
-    <script type="text/javascript" language="javascript" src="appResource/js/ajaxFileUpdate.js"></script>
 </head>
 <body>
 
@@ -36,45 +35,61 @@
 
     }
 
-    <%--$(document).ready(function () {--%>
-    <%--var msg = eval("("+${userInfo.real_name }+")");--%>
-    <%--});--%>
-    function ajaxFileUpload() {
-        //开始上传文件时显示一个图片,文件上传完成将图片隐藏
-        var submit_paper_name = document.getElementById("submit_paper_name").value;
-        $.ajaxFileUpload({
-            //处理文件上传操作的服务器端地址(可以传参数,已亲测可用)
-            type: 'POST',
-            url: 'rest/paperInfo/submit',
-            secureuri: false,                       //是否启用安全提交,默认为false
-            fileElementId: 'submit_paper_file',           //文件选择框的id属性
-            data: {
-                submit_paper_name: submit_paper_name
-            },
-            dataType: 'text',                       //服务器返回的格式,可以是json或xml等
-            success: function (data, status) {        //服务器响应成功时的处理函数
-                var msg = eval("(" + data.match(/;">([\s\S]*?)<\/pre>/)[1] + ")");
-                if (msg.result == "1") {
-                    Lobibox.alert('success', {
-                        msg: msg.tip
-                    });
-                } else {
-                    Lobibox.alert('error', {
-                        msg: msg.tip
-                    });
 
+    $(document).ready(function () {
+        $("#submit_paper_btn").bind("click", function () {
+            var submit_paper_stu_tch_name = document.getElementById("submit_paper_stu_tch_name").value;
+            var submit_paper_stu_place = document.getElementById("submit_paper_stu_place").value;
+            var info = "请确认以下信息!<br>指导教师：" + submit_paper_stu_tch_name + "  所属教学点：" + submit_paper_stu_place + "<br>";
+            info += "如有错误，请联系学院教学办！";
+            Lobibox.confirm({
+                msg: info,
+                callback: function ($this, type, ev) {
+                    if (type === 'yes') {
+                        Lobibox.notify('success', {
+                            msg: '文件上传中！'
+                        });
+                        var submit_paper_name = document.getElementById("submit_paper_name").value;
+                        $.ajaxFileUpload({
+                            //处理文件上传操作的服务器端地址(可以传参数,已亲测可用)
+                            type: 'POST',
+                            url: 'rest/paperInfo/submit',
+                            secureuri: false,                       //是否启用安全提交,默认为false
+                            fileElementId: 'submit_paper_file',           //文件选择框的id属性
+                            data: {
+                                submit_paper_name: submit_paper_name
+                            },
+                            dataType: 'text',                       //服务器返回的格式,可以是json或xml等
+                            success: function (data, status) {        //服务器响应成功时的处理函数
+                                var msg = eval("(" + data.match(/;">([\s\S]*?)<\/pre>/)[1] + ")");
+                                if (msg.result == "1") {
+                                    Lobibox.alert('success', {
+                                        msg: msg.tip
+                                    });
+                                } else {
+                                    Lobibox.alert('error', {
+                                        msg: msg.tip
+                                    });
+
+                                }
+                            },
+                            error: function (data, status, e) { //服务器响应失败时的处理函数
+                                Lobibox.alert('error', {
+                                    msg: "上传失败"
+                                });
+                            }
+                        });
+                    } else if (type === 'no') {
+                        Lobibox.notify('info', {
+                            msg: '取消上传！'
+                        });
+                    }
                 }
-            },
-            error: function (data, status, e) { //服务器响应失败时的处理函数
-                Lobibox.alert('error', {
-                    msg: "上传失败"
-                });
-            }
+            });
+
+
         });
-    }
-    function ajaxUpload() {
-        $("#paper_submit_form").submit();
-    }
+    });
 
 </script>
 <div class="header">
@@ -88,32 +103,32 @@
         <!--end of left content -->
 
         <div class="right_content">
-            <h2>系统故障，请联系学院教学办，解决相应问题</h2> <br/> <br/> <br/> <br/>
+            <h2>论文提交</h2><br/>
 
             <div class="form">
                 <form id="paper_submit_form" name="paper_submit_form" class="niceform">
                     <fieldset>
 
-                        <dl>
-                            <dt>
-                                <label for="submit_paper_std_username">学生学号:</label>
-                            </dt>
-                            <dd>
-                                <input type="text" name="submit_paper_std_username" id="submit_paper_std_username"
-                                       size="54"
-                                       value=""/>
-                            </dd>
-                        </dl>
-                        <dl>
-                            <dt>
-                                <label for="submit_paper_std_realName">学生姓名:</label>
-                            </dt>
-                            <dd>
-                                <input type="text" name="submit_paper_std_realName" id="submit_paper_std_realName"
-                                       size="54"
-                                       value=""/>
-                            </dd>
-                        </dl>
+                        <%--<dl>--%>
+                        <%--<dt>--%>
+                        <%--<label for="submit_paper_std_username">学生学号:</label>--%>
+                        <%--</dt>--%>
+                        <%--<dd>--%>
+                        <%--<input type="text" name="submit_paper_std_username" id="submit_paper_std_username"--%>
+                        <%--size="54"--%>
+                        <%--value=""/>--%>
+                        <%--</dd>--%>
+                        <%--</dl>--%>
+                        <%--<dl>--%>
+                        <%--<dt>--%>
+                        <%--<label for="submit_paper_std_realName">学生姓名:</label>--%>
+                        <%--</dt>--%>
+                        <%--<dd>--%>
+                        <%--<input type="text" name="submit_paper_std_realName" id="submit_paper_std_realName"--%>
+                        <%--size="54"--%>
+                        <%--value=""/>--%>
+                        <%--</dd>--%>
+                        <%--</dl>--%>
 
 
                         <dl>
@@ -125,52 +140,15 @@
                             <dd><input type="file" id="submit_paper_file" name="submit_paper_file"/></dd>
                         </dl>
                         <dl class="submit">
-                            <dd><input type="button" onclick="ajaxFileUpload()" name="submit" id="submit" value="提交"/>
+                            <dd><input type="button" name="submit_paper_btn" id="submit_paper_btn" value="提交"/>
                             </dd>
                         </dl>
                     </fieldset>
                 </form>
-                <%--<sf:form enctype="multipart/form-data" method="post" class="niceform">--%>
-
-                <%--<fieldset>--%>
-
-                <%--<dl>--%>
-                <%--<dt>--%>
-                <%--<label for="submit_paper_std_username">学生学号:</label>--%>
-                <%--</dt>--%>
-                <%--<dd>--%>
-                <%--<input type="text" name="submit_paper_std_username" id="submit_paper_std_username"--%>
-                <%--size="54"--%>
-                <%--value=""/>--%>
-                <%--</dd>--%>
-                <%--</dl>--%>
-                <%--<dl>--%>
-                <%--<dt>--%>
-                <%--<label for="submit_paper_std_realName">学生姓名:</label>--%>
-                <%--</dt>--%>
-                <%--<dd>--%>
-                <%--<input type="text" name="submit_paper_std_realName" id="submit_paper_std_realName"--%>
-                <%--size="54"--%>
-                <%--value=""/>--%>
-                <%--</dd>--%>
-                <%--</dl>--%>
-
-
-                <%--<dl>--%>
-                <%--<dt><label for="submit_paper_name">论文名称:</label></dt>--%>
-                <%--<dd><input type="text" name="submit_paper_name" id="submit_paper_name" size="54"/></dd>--%>
-                <%--</dl>--%>
-                <%--<dl>--%>
-                <%--<dt><label for="submit_paper_file">选择文件:</label></dt>--%>
-                <%--<dd><input type="file" id="submit_paper_file" name="submit_paper_file"/></dd>--%>
-                <%--</dl>--%>
-                <%--<dl class="submit">--%>
-                <%--<dd><input type="submit" name="submit" id="submit" value="提交"/></dd>--%>
-                <%--</dl>--%>
-                <%--</fieldset>--%>
-                <%--</sf:form>--%>
             </div>
         </div>
+        <input id="submit_paper_stu_tch_name" type="hidden" value="${userInfo.stu_tch_name }"/>
+        <input id="submit_paper_stu_place" type="hidden" value="${userInfo.place}"/>
         <!-- end of right content-->
 
     </div>

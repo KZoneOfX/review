@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="Review.r_server.userInfo.UserInfoMapper">
 
-    <!--int insertUserInfo(UserInfo userInfo);-->
+
+    <!--int insertUserInfo(UserInfo userInfo);  insertUser-->
     <insert id="insertUserInfo" parameterType="UserInfo">
         INSERT INTO i_user_info
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -13,7 +14,7 @@
                 real_name,
             </if>
             <if test="place !=null">
-                place
+                place,
             </if>
             <if test="email != null">
                 email,
@@ -45,11 +46,14 @@
             <if test="stu_tch_id !=null">
                 stu_tch_id,
             </if>
+            <if test="stu_tch_name !=null">
+                stu_tch_name,
+            </if>
             <if test="stu_admin_id !=null">
                 stu_admin_id,
             </if>
             <if test="tch_job_title !=null">
-                tch_job_titile,
+                tch_job_title,
             </if>
             <if test="tch_department !=null">
                 tch_department,
@@ -96,7 +100,7 @@
                 #{stu_review_no,jdbcType=VARCHAR},
             </if>
             <if test="stu_paper_status !=null">
-                #{stu_paper_status,jdbcType=INT},
+                #{stu_paper_status,jdbcType=INTEGER},
             </if>
             <if test="stu_paper_submit_time_start !=null">
                 #{stu_paper_submit_time_start,jdbcType=TIMESTAMP},
@@ -105,10 +109,13 @@
                 #{stu_paper_submit_time_over,jdbcType=TIMESTAMP},
             </if>
             <if test="stu_tch_id !=null">
-                #{stu_tch_id,jdbcType=INT},
+                #{stu_tch_id,jdbcType=INTEGER},
+            </if>
+            <if test="stu_tch_name !=null">
+                #{stu_tch_name,jdbcType=VARCHAR},
             </if>
             <if test="stu_admin_id !=null">
-                #{stu_admin_id,jdbcType=INT},
+                #{stu_admin_id,jdbcType=INTEGER},
             </if>
             <if test="tch_job_title !=null">
                 #{tch_job_title,jdbcType=VARCHAR},
@@ -163,7 +170,7 @@
                 stu_review_no = #{stu_review_no,jdbcType=VARCHAR},
             </if>
             <if test="stu_paper_status !=null">
-                stu_paper_status = #{stu_paper_status,jdbcType=INT},
+                stu_paper_status = #{stu_paper_status,jdbcType=INTEGER},
             </if>
             <if test="stu_paper_submit_time_start !=null">
                 stu_paper_submit_time_start = #{stu_paper_submit_time_start,jdbcType=TIMESTAMP},
@@ -172,10 +179,13 @@
                 stu_paper_submit_time_over = #{stu_paper_submit_time_over,jdbcType=TIMESTAMP},
             </if>
             <if test="stu_tch_id !=null">
-                stu_tch_id = #{stu_tch_id,jdbcType=INT},
+                stu_tch_id = #{stu_tch_id,jdbcType=INTEGER},
+            </if>
+            <if test="stu_tch_name !=null">
+                stu_tch_name = #{stu_tch_name,jdbcType=VARCHAR},
             </if>
             <if test="stu_admin_id !=null">
-                stu_admin_id = #{stu_admin_id,jdbcType=INT},
+                stu_admin_id = #{stu_admin_id,jdbcType=INTEGER},
             </if>
             <if test="tch_job_title !=null">
                 tch_job_title = #{tch_job_title,jdbcType=VARCHAR},
@@ -207,6 +217,20 @@
     </update>
     <!--int deleteUserInfo(UserInfo userInfo);-->
 
+    <select id="selectStudentList" resultType="UserInfo">
+        SELECT
+        iuf.*,
+        iu.username AS username,
+        iu.password AS password,
+        ir.description AS role_description
+        FROM i_user_info iuf, i_user iu, i_role ir, i_user_role iur
+        WHERE ir.id = 5 and
+        iur.role_id = ir.id AND
+        iur.user_id = iu.id AND
+        iuf.user_id =iu.id AND
+        iu.state = 1
+    </select>
+
     <select id="selectUserInfoByUserId" parameterType="Long" resultType="UserInfo">
         SELECT
         iuf.*,
@@ -218,11 +242,16 @@
     </select>
     <!--UserInfo selectUserInfoByUserId(int user_id);-->
 
-    <select id="countUserInfos" parameterType="UserInfo">
-        SELECT count(*)
-        FROM i_user_info
+    <select id="countUserInfos" parameterType="Map" resultType="Integer">
+        SELECT count(1)
+        FROM i_user_info i_u_i ,i_user_role i_u_r,i_user i_u
+        WHERE
+        i_u_i.user_id = i_u_r.user_id AND
+        i_u.id = i_u_i.user_id AND
+        i_u_r.role_id = #{role_id} AND
+        i_u.state = 1
     </select>
-    <!--int countUserInfos(UserInfo userInfo);-->
+    <!--int countUserInfos(Map<String, String> map);-->
 
     <!--List<UserInfo> selectUserInfos(UserInfo userInfo);-->
 

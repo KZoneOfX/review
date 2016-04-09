@@ -1,5 +1,8 @@
 package Review.r_basic.r_b_user;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Xiaoke Zhang
@@ -30,5 +33,16 @@ public class UserServiceImpl implements UserService {
 
     public User selectById(Long id) {
         return userMapper.selectById(id);
+    }
+
+    public int insertUser(User user) {
+        return userMapper.insertUser(user);
+    }
+
+    public int insertUserRole(Long user_id, Long role_id) {
+        Map<String, Long> map = new HashMap<String, Long>();
+        map.put("user_id", user_id);
+        map.put("role_id", role_id);
+        return userMapper.insertUserRole(map);
     }
 }

@@ -25,4 +25,9 @@ public interface UserService {
     User selectByUsername(String username);
 
     User selectById(Long id);
+
+    int insertUser(User user);
+
+
+    int insertUserRole(Long user_id, Long role_id);
 }

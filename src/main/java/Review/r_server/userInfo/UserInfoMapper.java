@@ -1,5 +1,7 @@
 package Review.r_server.userInfo;
 
+import org.apache.ibatis.session.RowBounds;
+
 import java.util.List;
 import java.util.Map;
 
@@ -25,11 +27,17 @@ public interface UserInfoMapper {
 
     UserInfo selectUserInfoByUserId(Long user_id);
 
-    int countUserInfos(UserInfo userInfo);
+    int countUserInfos(Map<String, Object> map);
 
     List<UserInfo> selectUserInfos(UserInfo userInfo);
+
+    List<UserInfo> selectStudentList();
+
+    List<UserInfo> selectStudentList(RowBounds rowBounds);
+
 
     List<UserInfo> selectUserInfosByPage(Map<String, Object> map);
 
 
+    int countStudents(Map<String, Object> map);
 }

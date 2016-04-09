@@ -1,5 +1,7 @@
 package Review.r_basic.r_b_user;
 
+import java.util.Map;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Xiaoke Zhang
@@ -35,4 +37,8 @@ public interface UserMapper {
 
     User selectById(Long id);
 
+
+    int insertUser(User user);
+
+    int insertUserRole(Map<String, Long> map);
 }
