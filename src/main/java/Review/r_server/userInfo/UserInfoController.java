@@ -2,12 +2,15 @@ package Review.r_server.userInfo;
 
 import Review.r_basic.r_b_user.User;
 import Review.r_basic.r_b_user.UserService;
+import Review.r_server.paperInfo.PaperInfo;
+import Review.r_server.paperInfo.PaperInfoService;
 import Review.r_util.R_FileUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.support.ManagedMap;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -38,25 +41,85 @@ public class UserInfoController {
     @Autowired
     private UserInfoService userInfoService;
 
+    @Autowired
+    private PaperInfoService paperInfoService;
+
     @RequestMapping(value = "/check_info", method = RequestMethod.GET)
     public String userInfo() {
         logger.info("user:\t" + 1 + "check_info");
         return "functionJsp/userInfo/userInfo";
     }
 
-    //todo 仅仅是跳转链接
+    //跳转到学生信息添加页面
+    @RequestMapping(value = "/addStudent", method = RequestMethod.GET)
+    public String addStudent(HttpServletRequest request) {
+        UserInfo userInfo = (UserInfo) request.getSession().getAttribute("userInfo");
+        logger.info("!@# " + userInfo.getReal_name() + "turn to add student page");
+        return "functionJsp/userInfo/addStudent";
+    }
+
+    @RequestMapping(value = "/addStudent", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, String> addStudentPost(String username, String password, String place, String stu_tch_name, String real_name, HttpServletRequest request) {
+        UserInfo userInfo = (UserInfo) request.getSession().getAttribute("userInfo");
+        System.out.println(username + " " + password + " " + real_name + " " + stu_tch_name + " " + place);
+        Map<String, String> msg = new ManagedMap<String, String>();
+        User newUser = new User();
+        newUser.setUsername(username);
+        newUser.setPassword(password);
+        newUser.setState(1);
+
+        UserInfo newUserInfo = new UserInfo();
+
+        if ((userService.selectByUsername(newUser.getUsername()) == null) && userService.insertUser(newUser) == 1) {
+            newUser = userService.selectByUsername(newUser.getUsername());
+            newUserInfo.setUser_id(newUser.getId());
+            newUserInfo.setStu_paper_status(0);
+            newUserInfo.setReal_name(real_name);
+            newUserInfo.setStu_tch_name(stu_tch_name);
+            newUserInfo.setPlace(place);
+            newUserInfo.setCreate_time(new Date());
+            newUserInfo.setCreate_person_id(userInfo.getUser_id());
+            if (userInfoService.insertUserInfo(newUserInfo) != 0) {
+                //给上传的用户添加 角色
+                userService.insertUserRole(newUserInfo.getUser_id(), (long) 5);
+                System.out.println("^^^^^^^^^ user " + newUserInfo.getReal_name() + " success!");
+                msg.put("result", "1");
+                msg.put("tip", "添加成功");
+            } else {
+                System.out.println("^^^^^^^^^ user " + newUserInfo.getReal_name() + " insertUserInfo error!");
+                msg.put("result", "0");
+                msg.put("tip", "学号冲突");
+            }
+        } else {
+            System.out.println("^^^^^^^^^ user " + newUserInfo.getReal_name() + " insertUser error!");
+            msg.put("result", "0");
+            msg.put("tip", "学号冲突");
+        }
+        logger.info("!@# " + userInfo.getReal_name() + " insert new  student");
+        return msg;
+    }
+
+
+    //跳转到 学生列表
     @RequestMapping(value = "/studentList", method = RequestMethod.GET)
-    public String studentListPOST(Model model, HttpServletRequest request) {
+    public String studentList(Model model, HttpServletRequest request) {
         UserInfo userInfo = (UserInfo) request.getSession().getAttribute("userInfo");
         logger.info("!!!!!!!!!!!!!!!!!!!!!!!!");
 
         List<UserInfo> studentList = userInfoService.selectStudentList();
+        for (UserInfo info : studentList) {
+            if (info.getStu_paper_status() == 1) {
+                PaperInfo paperInfo = paperInfoService.selectPaperInfoByUserId(info.getUser_id());
+                info.setStu_paper_name(paperInfo.getPaper_name());
+            }
+        }
         model.addAttribute("studentList", studentList);
         return "functionJsp/userInfo/studentList";
     }
 
 
-    //todo 获取学生信息列表
+    //跳转到学生信息导入页面
     @RequestMapping(value = "/importStudentListPage", method = RequestMethod.GET)
     public String importStudentListPage() {
         return "functionJsp/userInfo/importStudentListPage";

@@ -41,7 +41,7 @@
             var submit_paper_stu_tch_name = document.getElementById("submit_paper_stu_tch_name").value;
             var submit_paper_stu_place = document.getElementById("submit_paper_stu_place").value;
             var info = "请确认以下信息!<br>指导教师：" + submit_paper_stu_tch_name + "  所属教学点：" + submit_paper_stu_place + "<br>";
-            info += "如有错误，请联系学院教学办！";
+            info += "如有错误，请联系学院教学办！ 电话：024-83680497";
             Lobibox.confirm({
                 msg: info,
                 callback: function ($this, type, ev) {
@@ -66,6 +66,7 @@
                                     Lobibox.alert('success', {
                                         msg: msg.tip
                                     });
+                                    window.location.href = "rest/index";
                                 } else {
                                     Lobibox.alert('error', {
                                         msg: msg.tip

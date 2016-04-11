@@ -40,6 +40,7 @@ public class UserInfo implements Serializable {
     private String stu_review_no;
     private Integer stu_paper_status;
     private String stu_paper_status_string;
+    private String stu_paper_name;
 
     private Date stu_paper_submit_time_start;
     private String stu_paper_submit_time_start_string;
@@ -89,14 +90,6 @@ public class UserInfo implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getrole_description() {
-        return role_description;
-    }
-
-    public void setrole_description(String role_description) {
-        this.role_description = role_description;
     }
 
     public String getReal_name() {
@@ -193,6 +186,22 @@ public class UserInfo implements Serializable {
 
     public void setStu_paper_status_string(String stu_paper_status_string) {
         this.stu_paper_status_string = stu_paper_status_string;
+    }
+
+    public String getStu_paper_name() {
+        return stu_paper_name;
+    }
+
+    public void setStu_paper_name(String stu_paper_name) {
+        this.stu_paper_name = stu_paper_name;
+    }
+
+    public String getRole_description() {
+        return role_description;
+    }
+
+    public void setRole_description(String role_description) {
+        this.role_description = role_description;
     }
 
     public Date getStu_paper_submit_time_start() {

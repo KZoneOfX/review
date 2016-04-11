@@ -3,7 +3,8 @@
 <mapper namespace="Review.r_basic.r_b_role.RoleMapper">
     <!-- 通过用户id 查询用户 拥有的角色 -->
     <select id="selectRolesByUserId" resultType="Role" parameterType="java.lang.Long">
-        SELECT r.* FROM i_role r LEFT JOIN  i_user_role ur ON r.id = ur.role_id
+        SELECT r.id,r.role_name AS roleName ,r.role_sign AS roleSign,r.description FROM i_role r LEFT JOIN i_user_role
+        ur ON r.id = ur.role_id
         WHERE ur.user_id = #{id,jdbcType=BIGINT}
     </select>
 </mapper>
