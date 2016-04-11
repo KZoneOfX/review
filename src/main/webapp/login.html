@@ -58,6 +58,7 @@
             var password = $("#password").val();
             if (username.length == 0 || password.length == 0) {
                 show_login_tip_div("账号密码不能为空！");
+                return;
             } else {
                 var md5_password = $.md5(username + password);
                 $.ajax({
@@ -72,7 +73,11 @@
                         var map = eval("(" + data + ")");
                         var result = map["result"];
                         if (result == "yes") {
-                            window.location.href = 'rest/index';
+                            if (map["role"] == "developer") {
+                                window.location.href = 'rest/user/studentList';
+                            } else {
+                                window.location.href = 'rest/index';
+                            }
                         } else {
                             var wrong = map["error"];
                             show_login_tip_div(wrong);

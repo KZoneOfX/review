@@ -33,9 +33,45 @@
         <!--end of left content -->
 
         <div class="right_content">
-            <h2>系统故障，请联系学院教学办，解决相应问题</h2> <br/> <br/> <br/> <br/>
             <div align="left" style="width:900px; margin:0 auto">
+                <shiro:hasRole name="student">
+                    <h2 style="color:#56c1ec;">论文状态显示</h2>
+                    <table id="rounded-corner" style="width:930px;"
+                           summary="2007 Major IT Companies' Profit">
+                        <thead>
+                        <tr>
+                            <th scope="col" class="rounded" style="color:#fff;">论文名称</th>
+                            <th scope="col" class="rounded" style="color:#fff;">论文状态</th>
+                            <th scope="col" class="rounded" style="color:#fff;">上传时间</th>
+                            <th scope="col" class="rounded-q4" style="color:#fff;">下载</th>
+                        </tr>
+                        </thead>
 
+                        <tbody>
+                        <c:if test="${userInfo.stu_paper_status==1}">
+                            <tr>
+                                <td>${paperInfo.paper_name }</td>
+                                <td>已提交</td>
+                                <td>${paperInfo.paper_create_time }</td>
+                                <td><a href="rest/paperInfo/download"><img
+                                        src="appResource/images/download.png" align="center" valign="middle"/></a></td>
+                                </td>
+                            </tr>
+                        </c:if>
+                        <c:if test="${userInfo.stu_paper_status!=1}">
+                            <tr>
+                                <td></td>
+                                <td>
+                                    未提交
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </c:if>
+                        </tbody>
+                    </table>
+
+                </shiro:hasRole>
             </div>
         </div>
         <!-- end of right content-->

@@ -40,9 +40,8 @@
         <!--end of left content -->
 
         <div class="right_content">
-            用户信息
             <div class="form">
-                <form action="" method="post" class="niceform">
+                <form method="post" class="niceform">
 
                     <fieldset>
                         <dl>
@@ -52,51 +51,42 @@
                                        value="${userInfo.real_name}" disabled="disabled"/></dd>
                         </dl>
                         <dl>
-                            <dt><label for="username">账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号:</label>
+                            <dt><label for="username">
+                                <shiro:hasRole name="student">
+                                    学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号:
+
+                                </shiro:hasRole>
+                                <shiro:hasRole name="developer">
+                                    账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号:
+                                </shiro:hasRole>
+                            </label>
                             </dt>
-                            <dd><input type="text" name="username" id="username" size="54" value="${userInfo.user_id }"
+                            <dd><input type="text" name="username" id="username" size="54" value="${userInfo.username }"
                                        disabled="disabled"/></dd>
                         </dl>
                         <dl>
                             <dt><label for="place">所属教学点:</label></dt>
                             <dd><input type="text" name="place" id="place" size="54" value="${userInfo.place } "
-                                       disabled="disabled"/></dd>
+                                    <shiro:hasRole name="student">
+                                        disabled="disabled"
+
+                                    </shiro:hasRole>
+                            /></dd>
                         </dl>
                         <dl>
                             <dt><label for="phone">手&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机&nbsp;&nbsp;&nbsp;&nbsp;号:</label>
                             </dt>
                             <dd><input type="text" name="phone" id="phone" size="54"
-                                       value=${userInfo.phone } disabled="disabled"/></dd>
+                                       value="${userInfo.phone }"/></dd>
                         </dl>
                         <dl>
                             <dt><label for="email">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱:</label>
                             </dt>
                             <dd><input type="text" name="email" id="email" size="54"
-                                       value=${userInfo.email } disabled="disabled"/></dd>
+                                       value="${userInfo.email }"/></dd>
                         </dl>
-                        <dl>
-                            <dt><label for="tch_job_title">职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称:</label>
-                            </dt>
-                            <dd><input type="text" name="tch_job_title" id="tch_job_title" size="54"
-                                       value="${userInfo.tch_job_title }" disabled="disabled"/></dd>
-                        </dl>
-
-                        <dl>
-                            <dt><label for="tch_department">部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;门:</label>
-                            </dt>
-                            <dd><input type="text" name="tch_department" id="tch_department" size="54"
-                                       value="${userInfo.tch_department }" disabled="disabled"/></dd>
-                        </dl>
-                        <dl>
-                            <dt><label for="tch_department">身&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;份:</label>
-                            </dt>
-                            <dd><input type="text" name="tch_department" id="tch_department" size="54"
-                                       value="${userInfo.tch_department }" disabled="disabled"/></dd>
-                        </dl>
-                        <dl>
-                            <dt><label for="tch_office_phone">办&nbsp;&nbsp;公&nbsp;&nbsp;电&nbsp;&nbsp;话:</label></dt>
-                            <dd><input type="text" name="tch_office_phone" id="tch_office_phone" size="54"
-                                       value="${userInfo.tch_office_phone }" disabled="disabled"/></dd>
+                        <dl class="submit">
+                            <input type="submit" name="submit" id="submit" value="更新"/>
                         </dl>
                     </fieldset>
                 </form>

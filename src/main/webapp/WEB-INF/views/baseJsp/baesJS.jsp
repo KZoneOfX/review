@@ -19,6 +19,7 @@
 <script type="text/javascript" language="javascript" src="appResource/js/demo.js"></script>
 <script type="text/javascript" language="javascript" src="appResource/js/ajaxFileUpdate.js"></script>
 
+<script type="text/javascript" src="appResource/KZone/js/jquery/jquery.md5.js"></script>
 <%--<script type="text/javascript" language="javascript" src="appResource/js/lobIBox/jquery.1.11.min.js"></script>--%>
 <script type="text/javascript" language="javascript" src="appResource/js/lobIBox/lobibox.min.js"></script>
 <script type="text/javascript" language="javascript" class="init"></script>

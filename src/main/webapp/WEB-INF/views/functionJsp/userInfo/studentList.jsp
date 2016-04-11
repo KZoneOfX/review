@@ -30,27 +30,70 @@
                     {
                         "data": "checkbox",
 
-                        orderable: false
+                        orderable: false,
+                        "sWidth": "20px"
                     },
 
-                    {"data": "no"},
-
-                    {"data": "username"},
-
-                    {"data": "real_name"},
-
-                    {"data": "place"},
-
-                    {"data": "stu_tch_name"},
+                    {
+                        "data": "no",
+                        "sWidth": "30px"
+                    },
 
                     {
-                        data: "stu_paper_status"
+                        "data": "username",
+                        "sWidth": "50px"
+                    },
+
+                    {
+                        "data": "real_name",
+                        "sWidth": "50px"
+                    },
+
+                    {
+                        "data": "place",
+                        "sWidth": "50px"
+                    },
+
+                    {
+                        "data": "stu_tch_name",
+                        "sWidth": "50px"
+                    },
+
+                    {"data": "stu_paper_name"},
+
+                    {
+                        "data": "stu_paper_status",
+                        "sWidth": "50px"
+                    },
+
+                    {
+                        "data": "stu_edit",
+                        "sWidth": "30px",
+                        orderable: false
                     }
-                ]
+                ],
+                "oLanguage": {                          //汉化
+                    "sLengthMenu": "每页显示 _MENU_ 条记录",
+                    "sZeroRecords": "没有检索到数据",
+                    "sInfo": "当前数据为从第 _START_ 到第 _END_ 条数据；总共有 _TOTAL_ 条记录",
+                    "sInfoEmtpy": "没有数据",
+                    "sProcessing": "正在加载数据...",
+                    "oPaginate": {
+                        "sFirst": "首页",
+                        "sPrevious": "前页",
+                        "sNext": "后页",
+                        "sLast": "尾页"
+                    }
+                }
+
             });
 
             $("#studentList_import_btn").bind("click", function () {
                 window.location.href = 'rest/user/importStudentListPage';
+            });
+
+            $("#studentList_add_student_btn").bind("click", function () {
+                window.location.href = 'rest/user/addStudent';
             });
 
             $("#studentList_download_papers_btn").bind("click", function () {
@@ -95,10 +138,7 @@
                         }
                     }
                 });
-
             });
-
-
         });
         function selectAll() {
             var checklist = document.getElementsByName("selected");
@@ -133,18 +173,18 @@
                     <thead>
                     <tr>
                         <th style="text-align:center;">
-                            <input onclick="selectAll()" type="checkbox" name="controlAll" style="controlAll"
-                                   id="controlAll"/>
+                            <input onclick="selectAll()" type="checkbox" name="controlAll" id="controlAll">
                         </th>
                         <th style="text-align:center;" scope="col" class="rounded">序号</th>
                         <th style="text-align:center;" scope="col" class="rounded">学号</th>
                         <th style="text-align:center;" scope="col" class="rounded">姓名</th>
                         <th style="text-align:center;" scope="col" class="rounded">教学点</th>
                         <th style="text-align:center;" scope="col" class="rounded">指导教师</th>
+                        <th style="text-align:center;" scope="col" class="rounded">论文名称</th>
                         <th style="text-align:center;" scope="col" class="rounded">论文状态</th>
+                        <th style="text-align:center;" scope="col" class="rounded">查看</th>
                     </tr>
                     </thead>
-
                     <tbody>
                     <% int i = 1; %>
                     <c:forEach items="${studentList }" var="student">
@@ -162,22 +202,27 @@
                             <td align="center" valign="middle">${student.real_name }</td>
                             <td align="center" valign="middle">${student.place }</td>
                             <td align="center" valign="middle">${student.stu_tch_name }</td>
+                            <td align="center" valign="middle">${student.stu_paper_name }</td>
                             <td align="center" valign="middle">
                                 <c:if test="${student.stu_paper_status==1}">
-                                    <a href="rest/paperInfo/${student.username }/download"> 已提交<img
+                                    <a href="rest/paperInfo/${student.username }/download"> <b
+                                            style="color: red">已提交</b><img
                                             src="appResource/images/download_1.png"></a>
                                 </c:if>
                                 <c:if test="${student.stu_paper_status!=1}">
-                                    未提交
+                                    <a href="rest/paperInfo/${student.username }/upload"> 未提交
+                                        <img src="appResource/images/upload.png"></a>
                                 </c:if>
                             </td>
+                            <td align="center" valign="middle"><a href="rest/user/${student.username }/info">
+                                <img src="appResource/images/user_edit.png"></a></td>
                         </tr>
                     </c:forEach>
                     </tbody>
                 </table>
 
 
-                <a href="" class="bt_blue">
+                <a id="studentList_add_student_btn" class="bt_blue">
                     <span class="bt_blue_lft"></span>
                     <strong>添加学生</strong>
                     <span class="bt_blue_r"></span>

@@ -2,6 +2,8 @@ package Review.r_server.login;
 
 import Review.r_basic.r_b_user.User;
 import Review.r_basic.r_b_user.UserService;
+import Review.r_server.paperInfo.PaperInfo;
+import Review.r_server.paperInfo.PaperInfoService;
 import Review.r_server.userInfo.UserInfo;
 import Review.r_server.userInfo.UserInfoService;
 import com.sun.deploy.net.HttpResponse;
@@ -42,6 +44,8 @@ public class LoginController {
     private UserService userService;
     @Autowired
     private UserInfoService userInfoService;
+    @Autowired
+    private PaperInfoService paperInfoService;
     /**
      * @param user
      * @param result
@@ -71,7 +75,16 @@ public class LoginController {
             subject.login(new UsernamePasswordToken(user.getUsername(), user.getPassword()));
             final User authUserInfo = userService.selectByUsername(user.getUsername());
             UserInfo userInfo = userInfoService.selectUserInfoByUserId(authUserInfo.getId());
-
+            System.out.println(userInfo.getRole_description());
+            if ("开发人员".equals(userInfo.getRole_description())) {
+                responseJSON.put("role", "developer");
+            } else {
+                responseJSON.put("role", "student");
+            }
+            if (userInfo.getStu_paper_status() != null && userInfo.getStu_paper_status() == 1) {
+                PaperInfo paperInfo = paperInfoService.selectPaperInfoByUserId(authUserInfo.getId());
+                request.getSession().setAttribute("paperInfo", paperInfo);
+            }
             request.getSession().setAttribute("userInfo", userInfo);
         } catch (AuthenticationException e){
             // 身份验证失败
@@ -81,6 +94,7 @@ public class LoginController {
             return responseJSON;
         }
         responseJSON.put("result", "yes");
+        System.out.println(responseJSON);
         return responseJSON;
     }
 
