@@ -9,6 +9,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.apache.poi.ss.formula.functions.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.support.ManagedMap;
 import org.springframework.stereotype.Controller;
@@ -45,7 +46,8 @@ public class UserInfoController {
     private PaperInfoService paperInfoService;
 
     @RequestMapping(value = "/info", method = RequestMethod.GET)
-    public String userInfo() {
+    public String userInfo(Model model) {
+        model.addAttribute("ifCheckStudent", 0);
         logger.info("user:\t" + 1 + "check_info");
         return "functionJsp/userInfo/userInfo";
     }
@@ -54,9 +56,10 @@ public class UserInfoController {
     public String infoUpdate(UserInfo studentInfo, HttpServletRequest request) {
         UserInfo userInfo = (UserInfo) request.getSession().getAttribute("userInfo");
         logger.info("user:\t" + 1 + "check_info");
+        System.out.println("studentInfo:::::::::::" + studentInfo);
+        System.out.println("userInfo:::::::::::" + userInfo);
         userInfo.setPhone(studentInfo.getPhone() == null && studentInfo.getPhone().equals("") ? userInfo.getPhone() : studentInfo.getPhone());
         userInfo.setEmail(studentInfo.getEmail() == null && studentInfo.getEmail().equals("") ? userInfo.getEmail() : studentInfo.getEmail());
-        userInfo.setPlace(studentInfo.getPlace() == null && studentInfo.getPlace().equals("") ? userInfo.getPlace() : studentInfo.getPlace());
         userInfoService.updateUserInfo(userInfo);
         request.getSession().removeAttribute("userInfo");
         request.getSession().setAttribute("userInfo", userInfo);
@@ -233,4 +236,34 @@ public class UserInfoController {
     }
 
 
+    @RequestMapping(value = "/{stu_username}/info", method = RequestMethod.GET)
+    public String studentInfo(@PathVariable String stu_username, HttpServletRequest request, Model model) {
+        UserInfo userInfo = (UserInfo) request.getSession().getAttribute("userInfo");
+        User student = userService.selectByUsername(stu_username);
+        UserInfo studentInfo = userInfoService.selectUserInfoByUserId(student.getId());
+        model.addAttribute("studentInfo", studentInfo);
+        model.addAttribute("ifCheckStudent", 1);
+        logger.info("user:\t" + 1 + "check_info");
+        return "functionJsp/userInfo/userInfo";
+    }
+
+    @RequestMapping(value = "/{stu_username}/info", method = RequestMethod.POST)
+    public String studentInfoUpdate(UserInfo studentInfo, @PathVariable String stu_username, HttpServletRequest request) {
+//        UserInfo userInfo = (UserInfo) request.getSession().getAttribute("userInfo");
+        logger.info("user:\t" + 1 + "check_info");
+        System.out.println(stu_username);
+        System.out.println("studentInfo::::" + studentInfo.toStuString());
+        User student = userService.selectByUsername(stu_username);
+        System.out.println("student::::" + student);
+        UserInfo studentInfoOld = userInfoService.selectUserInfoByUserId(student.getId());
+        System.out.println("studentInfoOld::::" + studentInfoOld.toStuString());
+        studentInfoOld.setReal_name(studentInfo.getReal_name() == null || studentInfo.getReal_name().equals("") ? studentInfoOld.getReal_name() : studentInfo.getReal_name());
+        studentInfoOld.setStu_tch_name(studentInfo.getStu_tch_name() == null || studentInfo.getStu_tch_name().equals("") ? studentInfoOld.getStu_tch_name() : studentInfo.getStu_tch_name());
+        studentInfoOld.setPlace(studentInfo.getPlace() == null || studentInfo.getPlace().equals("") ? studentInfoOld.getPlace() : studentInfo.getPlace());
+        studentInfoOld.setEmail(studentInfo.getEmail() == null || studentInfo.getEmail().equals("") ? studentInfoOld.getEmail() : studentInfo.getEmail());
+        studentInfoOld.setPhone(studentInfo.getPhone() == null || studentInfo.getPhone().equals("") ? studentInfoOld.getPhone() : studentInfo.getPhone());
+        System.out.println("studentInfoOld::::" + studentInfoOld.toStuString());
+        userInfoService.updateUserInfo(studentInfoOld);
+        return "redirect:info";
+    }
 }

@@ -43,52 +43,115 @@
             <div class="form">
                 <form method="post" class="niceform">
 
-                    <fieldset>
-                        <dl>
-                            <dt><label for="real_name">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名:</label>
-                            </dt>
-                            <dd><input type="text" name="real_name" id="real_name" size="54"
-                                       value="${userInfo.real_name}" disabled="disabled"/></dd>
-                        </dl>
-                        <dl>
-                            <dt><label for="username">
-                                <shiro:hasRole name="student">
-                                    学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号:
-
-                                </shiro:hasRole>
-                                <shiro:hasRole name="developer">
-                                    账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号:
-                                </shiro:hasRole>
-                            </label>
-                            </dt>
-                            <dd><input type="text" name="username" id="username" size="54" value="${userInfo.username }"
-                                       disabled="disabled"/></dd>
-                        </dl>
-                        <dl>
-                            <dt><label for="place">所属教学点:</label></dt>
-                            <dd><input type="text" name="place" id="place" size="54" value="${userInfo.place } "
+                    <c:if test="${ifCheckStudent ==0}">
+                        <fieldset>
+                            <dl>
+                                <dt><label for="username">
                                     <shiro:hasRole name="student">
-                                        disabled="disabled"
+                                        学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号:
 
                                     </shiro:hasRole>
-                            /></dd>
-                        </dl>
-                        <dl>
-                            <dt><label for="phone">手&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机&nbsp;&nbsp;&nbsp;&nbsp;号:</label>
-                            </dt>
-                            <dd><input type="text" name="phone" id="phone" size="54"
-                                       value="${userInfo.phone }"/></dd>
-                        </dl>
-                        <dl>
-                            <dt><label for="email">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱:</label>
-                            </dt>
-                            <dd><input type="text" name="email" id="email" size="54"
-                                       value="${userInfo.email }"/></dd>
-                        </dl>
-                        <dl class="submit">
-                            <input type="submit" name="submit" id="submit" value="更新"/>
-                        </dl>
-                    </fieldset>
+                                    <shiro:hasRole name="developer">
+                                        账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号:
+                                    </shiro:hasRole>
+                                </label>
+                                </dt>
+                                <dd><input type="text" name="username" id="username" size="54"
+                                           value="${userInfo.username }"
+                                           disabled="disabled"/></dd>
+                            </dl>
+                            <dl>
+                                <dt><label for="real_name">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名:</label>
+                                </dt>
+                                <dd><input type="text" name="real_name" id="real_name" size="54"
+                                           value="${userInfo.real_name}" disabled="disabled"/></dd>
+                            </dl>
+                            <shiro:hasRole name="student">
+                                <dl>
+                                    <dt><label for="stu_tch_name">指&nbsp;导&nbsp;教&nbsp;师&nbsp;&nbsp;:</label></dt>
+                                    <dd><input type="text" name="stu_tch_name" id="stu_tch_name" size="54"
+                                               value="${userInfo.stu_tch_name }"
+                                               disabled="disabled"
+                                    /></dd>
+                                </dl>
+
+                            </shiro:hasRole>
+                            <dl>
+                                <dt><label for="place">所属教学点&nbsp;:</label></dt>
+                                <dd><input type="text" name="place" id="place" size="54" value="${userInfo.place }"
+                                           disabled="disabled"
+                                /></dd>
+                            </dl>
+                            <dl>
+                                <dt><label
+                                        for="phone">手&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机&nbsp;&nbsp;&nbsp;&nbsp;号:</label>
+                                </dt>
+                                <dd><input type="text" name="phone" id="phone" size="54"
+                                           value="${userInfo.phone }"/></dd>
+                            </dl>
+                            <dl>
+                                <dt><label for="email">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱:</label>
+                                </dt>
+                                <dd><input type="text" name="email" id="email" size="54"
+                                           value="${userInfo.email }"/></dd>
+                            </dl>
+                            <dl class="submit">
+                                <input type="submit" name="submit" id="submit" value="更新"/>
+                            </dl>
+                        </fieldset>
+
+                    </c:if>
+
+                    <c:if test="${ifCheckStudent ==1}">
+                        <fieldset>
+                            <dl>
+                                <dt><label for="username">
+                                    学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号:
+                                </label>
+                                </dt>
+                                <dd><input type="text" name="username" id="username" size="54"
+                                           value="${studentInfo.username }"
+                                           disabled/></dd>
+                            </dl>
+                            <dl>
+                                <dt><label for="real_name">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名:</label>
+                                </dt>
+                                <dd><input type="text" name="real_name" id="real_name" size="54"
+                                           value="${studentInfo.real_name}"/></dd>
+                            </dl>
+                            <dl>
+                                <dt><label for="stu_tch_name">指&nbsp;导&nbsp;教&nbsp;师&nbsp;&nbsp;:</label></dt>
+                                <dd><input type="text" name="stu_tch_name" id="stu_tch_name" size="54"
+                                           value="${studentInfo.stu_tch_name }"
+
+                                /></dd>
+                            </dl>
+                            <dl>
+                                <dt><label for="place">所属教学点&nbsp;:</label></dt>
+                                <dd><input type="text" name="place" id="place" size="54" value="${studentInfo.place }"
+
+                                /></dd>
+                            </dl>
+                            <dl>
+                                <dt><label
+                                        for="phone">手&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机&nbsp;&nbsp;&nbsp;&nbsp;号:</label>
+                                </dt>
+                                <dd><input type="text" name="phone" id="phone" size="54"
+                                           value="${studentInfo.phone }"/></dd>
+                            </dl>
+                            <dl>
+                                <dt><label for="email">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱:</label>
+                                </dt>
+                                <dd><input type="text" name="email" id="email" size="54"
+                                           value="${studentInfo.email }"/></dd>
+                            </dl>
+                            <dl class="submit">
+                                <input type="submit" name="submit" id="submit" value="更新"/>
+                                <input type="button" name="submit" id="pwd_reset_btn" value="密码重置"/>
+                            </dl>
+                        </fieldset>
+
+                    </c:if>
                 </form>
             </div>
         </div>
