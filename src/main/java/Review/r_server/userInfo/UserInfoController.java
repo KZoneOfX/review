@@ -56,6 +56,7 @@ public class UserInfoController {
         logger.info("user:\t" + 1 + "check_info");
         userInfo.setPhone(studentInfo.getPhone() == null && studentInfo.getPhone().equals("") ? userInfo.getPhone() : studentInfo.getPhone());
         userInfo.setEmail(studentInfo.getEmail() == null && studentInfo.getEmail().equals("") ? userInfo.getEmail() : studentInfo.getEmail());
+        userInfo.setPlace(studentInfo.getPlace() == null && studentInfo.getPlace().equals("") ? userInfo.getPlace() : studentInfo.getPlace());
         userInfoService.updateUserInfo(userInfo);
         request.getSession().removeAttribute("userInfo");
         request.getSession().setAttribute("userInfo", userInfo);
