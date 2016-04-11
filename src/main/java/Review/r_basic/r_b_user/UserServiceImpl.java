@@ -39,6 +39,10 @@ public class UserServiceImpl implements UserService {
         return userMapper.insertUser(user);
     }
 
+    public int updateUser(User user) {
+        return userMapper.updateUser(user);
+    }
+
     public int insertUserRole(Long user_id, Long role_id) {
         Map<String, Long> map = new HashMap<String, Long>();
         map.put("user_id", user_id);
