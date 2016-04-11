@@ -27,6 +27,55 @@
     <title>东北大学软件学院论文系统</title>
     <%@ include file="../../baseJsp/baseCss.jsp" %>
     <%@ include file="../../baseJsp/baesJs.jsp" %>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#pwd_reset_btn").bind("click", function () {
+                var stu_name = $("#real_name").val();
+                var username = $("#username").val();
+                var info = "确定要重置 " + stu_name + " 的密码？";
+                Lobibox.confirm({
+                    msg: info,
+                    callback: function ($this, type, ev) {
+                        if (type === 'yes') {
+                            $.ajax({
+                                type: "POST",
+                                url: 'rest/user/restPassword',
+                                data: {
+                                    "username": username
+                                },
+                                success: function (data, status) {        //服务器响应成功时的处理函数
+                                    console.log(data);
+                                    var msg = eval("(" + data + ")");
+                                    if (msg.result == "1") {
+                                        Lobibox.alert('success', {
+                                            msg: msg.tip
+                                        });
+                                    } else {
+                                        Lobibox.alert('error', {
+                                            msg: msg.tip
+                                        });
+
+                                    }
+                                },
+                                error: function (data, status, e) { //服务器响应失败时的处理函数
+                                    Lobibox.alert('error', {
+                                        msg: "重置失败！"
+                                    });
+                                }
+                            });
+                            Lobibox.notify('success', {
+                                msg: '密码重置中！'
+                            });
+                        } else if (type === 'no') {
+                            Lobibox.notify('info', {
+                                msg: '取消重置！'
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 </head>
 <body>
 <div class="header">

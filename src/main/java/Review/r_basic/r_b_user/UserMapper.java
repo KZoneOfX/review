@@ -41,4 +41,6 @@ public interface UserMapper {
     int insertUser(User user);
 
     int insertUserRole(Map<String, Long> map);
+
+    int updateUser(User user);
 }

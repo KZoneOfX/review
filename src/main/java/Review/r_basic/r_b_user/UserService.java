@@ -28,6 +28,8 @@ public interface UserService {
 
     int insertUser(User user);
 
+    int updateUser(User user);
+
 
     int insertUserRole(Long user_id, Long role_id);
 }

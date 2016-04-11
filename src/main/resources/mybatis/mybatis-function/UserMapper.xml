@@ -26,4 +26,14 @@
         INSERT INTO i_user_role(user_id,role_id) VALUES (#{user_id},#{role_id});
     </insert>
 
+    <update id="updateUser" parameterType="User">
+        UPDATE i_user
+        <set>
+            <if test="password !=null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
 </mapper>
