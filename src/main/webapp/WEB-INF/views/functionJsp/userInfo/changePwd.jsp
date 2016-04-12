@@ -21,6 +21,7 @@
     <%@ include file="../../baseJsp/baseCss.jsp" %>
     <%@ include file="../../baseJsp/baseJS.jsp" %>
     <script type="text/javascript">
+
         function infoAlert(info) {
             Lobibox.alert('error', {
                 msg: info
@@ -52,6 +53,7 @@
                                         Lobibox.alert('success', {
                                             msg: "密码更改成功！请重新登录！"
                                         });
+                                        alert("密码更改成功！请重新登录！")
                                         logout(); //更新密码成功，重新登陆
                                     } else {
                                         infoAlert("密码更改失败！");

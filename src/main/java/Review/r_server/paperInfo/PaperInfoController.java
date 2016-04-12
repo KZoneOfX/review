@@ -222,6 +222,11 @@ public class PaperInfoController {
         //待压缩 论文所在的文件夹 名称
         String folder_name = "[" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "]";
         //待压缩 论文所在的文件夹 路径
+        String zipFiles_path = base_path + "serverFile/paper/ZipFiles";
+        File zipFiles = new File(zipFiles_path);
+        if (!zipFiles.exists()){
+            zipFiles.mkdir();
+        }
         String folder_path = base_path + "serverFile/paper/ZipFiles/" + "[" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "]";
         File folder = new File(folder_path);
         if (!folder.exists() && !folder.isDirectory()) {
@@ -283,10 +288,13 @@ public class PaperInfoController {
         if (stu_user != null && stu_userInfo != null && paperInfo != null) {
             String paper_path = bast_path + paperInfo.getPaper_path();
             String paper_name = stu_user.getUsername() + "_" + stu_userInfo.getReal_name() + "." + R_FileUtils.getFileSufix(paperInfo.getPaper_path());
-            R_FileUtils.fileDowmLoad(paper_path, paper_name, response);
-            logger.info("!@#  " + userInfo.getReal_name() + " download student:" + stu_userInfo.getReal_name() + " paper:" + paper_name + "success!!");
-        } else {
-
+            if (new File(paper_path).exists()){
+                R_FileUtils.fileDowmLoad(paper_path, paper_name, response);
+                logger.info("!@#  " + userInfo.getReal_name() + " download student:" + stu_userInfo.getReal_name() + " paper:" + paper_name + "success!!");
+            } else {
+                logger.info("!@#  " + userInfo.getReal_name() + " download student:" + stu_userInfo.getReal_name() + " failure!!");
+            }
+           } else {
             logger.info("!@#  " + userInfo.getReal_name() + " download student:" + stu_userInfo.getReal_name() + " failure!!");
         }
 
