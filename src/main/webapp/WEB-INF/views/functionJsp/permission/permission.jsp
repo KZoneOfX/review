@@ -21,7 +21,7 @@
     <%@ include file="../../baseJsp/baseCss.jsp" %>
     <link rel="stylesheet" type="text/css" href="appResource/css/zTree/demo.css"/>
     <link rel="stylesheet" type="text/css" href="appResource/css/zTree/zTreeStyle/zTreeStyle.css"/>
-    <%@ include file="../../baseJsp/baesJs.jsp" %>
+    <%@ include file="../../baseJsp/baseJS.jsp" %>
     <script type="text/javascript" src="appResource/js/zTree/jquery-1.4.4.min.js"></script>
     <script type="text/javascript" src="appResource/js/zTree/jquery.ztree.core.js"></script>
     <script type="text/javascript" src="appResource/js/zTree/jquery.ztree.excheck.js"></script>

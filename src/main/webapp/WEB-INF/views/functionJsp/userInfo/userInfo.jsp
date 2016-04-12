@@ -26,7 +26,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>东北大学软件学院论文系统</title>
     <%@ include file="../../baseJsp/baseCss.jsp" %>
-    <%@ include file="../../baseJsp/baesJs.jsp" %>
+    <%@ include file="../../baseJsp/baseJS.jsp" %>
     <script type="text/javascript">
         $(document).ready(function () {
             $("#pwd_reset_btn").bind("click", function () {

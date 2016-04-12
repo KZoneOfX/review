@@ -10,5 +10,5 @@
 <link rel="stylesheet" type="text/css" href="appResource/css/niceforms-default.css"/>
 <link rel="stylesheet" type="text/css" href="appResource/css/style.css"/>
 <link rel="stylesheet" type="text/css" href="appResource/css/jquery.dataTables.css">
-<link rel="stylesheet" href="appResource/css/lobIBox/lobibox.css"/>
-<link rel="stylesheet" href="appResource/css/lobIBox/bootstrap.min.css"/>
+<link rel="stylesheet" href="appResource/css/lobibox/lobibox.css"/>
+<link rel="stylesheet" href="appResource/css/lobibox/bootstrap.min.css"/>
