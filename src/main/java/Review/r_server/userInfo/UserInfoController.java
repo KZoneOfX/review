@@ -316,6 +316,12 @@ public class UserInfoController {
         return msg;
     }
 
+    /**
+     * 更新个人密码 页面跳转
+     *
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/changePwd", method = RequestMethod.GET)
     public String toChangePwd(HttpServletRequest request) {
         UserInfo userInfo = (UserInfo) request.getSession().getAttribute("userInfo");
@@ -323,6 +329,12 @@ public class UserInfoController {
         return "functionJsp/userInfo/changePwd";
     }
 
+    /**
+     * 更新个人密码 处理过程
+     * @param password
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/changePwd", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> changePwd(String password, HttpServletRequest request) {
