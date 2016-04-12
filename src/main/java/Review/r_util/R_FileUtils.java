@@ -140,9 +140,6 @@ public class R_FileUtils {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 throw new RuntimeException(e);
-            } catch (IOException e) {
-                e.printStackTrace();
-                throw new RuntimeException(e);
             } finally {
                 //关闭文件流
                 try {
