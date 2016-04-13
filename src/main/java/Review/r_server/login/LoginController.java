@@ -76,11 +76,7 @@ public class LoginController {
             final User authUserInfo = userService.selectByUsername(user.getUsername());
             UserInfo userInfo = userInfoService.selectUserInfoByUserId(authUserInfo.getId());
             System.out.println(userInfo.getRole_description());
-            if ("开发人员".equals(userInfo.getRole_description())) {
-                responseJSON.put("role", "developer");
-            } else {
-                responseJSON.put("role", "student");
-            }
+            System.out.println(userInfo);
             if (userInfo.getStu_paper_status() != null && userInfo.getStu_paper_status() == 1) {
                 PaperInfo paperInfo = paperInfoService.selectPaperInfoByUserId(authUserInfo.getId());
                 request.getSession().setAttribute("paperInfo", paperInfo);
@@ -114,24 +110,4 @@ public class LoginController {
         responseJSON.put("result", "yes");
         return responseJSON;
     }
-//
-//    /**
-//     * 基于角色 标识的权限控制案例
-//     */
-//    @RequestMapping(value = "/admin")
-//    @ResponseBody
-//    @RequiresRoles(value = RoleSign.ADMIN)
-//    public String admin() {
-//        return "拥有admin角色,能访问";
-//    }
-//
-//    /**
-//     * 基于权限标识的权限控制案例
-//     */
-//    @RequestMapping(value = "/create")
-//    @ResponseBody
-//    @RequiresPermissions(value = PermissionSign.USER_CREATE)
-//    public String create() {
-//        return "拥有user:create权限,能访问";
-//    }
 }

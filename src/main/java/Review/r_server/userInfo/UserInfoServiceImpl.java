@@ -81,7 +81,7 @@ public class UserInfoServiceImpl implements UserInfoService {
                 if (xssfSheet == null) {
                     continue;
                 }
-                for (int rowNum = 1; rowNum < xssfSheet.getLastRowNum(); rowNum++) {
+                for (int rowNum = 1; rowNum < xssfSheet.getLastRowNum()+1; rowNum++) {
                     xssfRow = xssfSheet.getRow(rowNum);
                     if (xssfRow != null && !(GVFSC(xssfRow.getCell(0)).trim().equals(""))) {
                         userInfo = new UserInfo();
@@ -94,7 +94,6 @@ public class UserInfoServiceImpl implements UserInfoService {
                     }
                 }
             }
-            System.out.println("@@@@@@@@@@@@@@" + userInfoList.size());
             msg.put("userInfoList", userInfoList);
             msg.put("result", "success");
         } catch (IOException e) {

@@ -16,7 +16,7 @@
             <p><label for="username">用户名：</label></p>
             <p><input type="text" id="username" name="username" class="loginInput" autofocus required autocomplete="off"
                       placeholder="请输入用户名" value=""/></p>
-            <p><label for="password">密码：</label><a class="forgetLink" href="user/forget">忘记密码?</a></p>
+            <p><label for="password">密码：</label><a class="forgetLink" id="login_forget_pwd">忘记密码?</a></p>
             <p><input type="password" id="password" name="password" class="loginInput" required placeholder="请输入密码"
                       value=""/></p>
         </div>
@@ -53,6 +53,10 @@
             login_tip_div.css('display', 'none');
         });
 
+        $("#login_forget_pwd").bind("click", function () {
+            show_login_tip_div("请联系学院教学办！ 电话：024-83680497");
+        });
+
         $("#loginBtn").bind("click", function () {
             var username = $("#username").val();
             var password = $("#password").val();
@@ -73,11 +77,7 @@
                         var map = eval("(" + data + ")");
                         var result = map["result"];
                         if (result == "yes") {
-                            if (map["role"] == "developer") {
-                                window.location.href = 'rest/user/studentList';
-                            } else {
-                                window.location.href = 'rest/index';
-                            }
+                            window.location.href = 'rest/index';
                         } else {
                             var wrong = map["error"];
                             show_login_tip_div(wrong);
@@ -91,7 +91,6 @@
                             show_login_tip_div("登录超时");
                         } else {
                             show_login_tip_div("服务器提了一个问题 >< !");
-//                        alert("wrong");
                         }
 
                     }
