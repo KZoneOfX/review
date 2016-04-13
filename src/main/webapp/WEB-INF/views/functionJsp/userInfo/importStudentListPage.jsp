@@ -24,7 +24,6 @@
         $(document).ready(function () {
 
             $("#import_student_file_btn").bind("click", function () {
-                alert("!!!");
                 $.ajaxFileUpload({
                     //处理文件上传操作的服务器端地址(可以传参数,已亲测可用)
                     type: 'POST',

@@ -55,13 +55,11 @@ public class SecurityRealm extends AuthorizingRealm {
         logger.info(roleInfos.toString());
         for (Role role : roleInfos) {
             // 添加角色
-            System.err.println(role);
             authorizationInfo.addRole(role.getRoleSign());
 
             final List<Permission> permissions = permissionService.selectPermissionsByRoleId(role.getId());
             for (Permission permission : permissions) {
                 // 添加权限
-                System.err.println(permission);
                 authorizationInfo.addStringPermission(permission.getPermission_sign());
             }
             logger.info(permissions.toString());
@@ -91,7 +89,6 @@ public class SecurityRealm extends AuthorizingRealm {
         }
         logger.info("user:"+username+" doGetAuthenticationInfo  login success");
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(username, password, getName());
-        System.out.println(authenticationInfo.toString());
         return authenticationInfo;
     }
 
