@@ -1,6 +1,5 @@
 package Review.r_server.userInfo;
 
-import javax.jws.Oneway;
 import java.util.List;
 import java.util.Map;
 
@@ -39,6 +38,5 @@ public interface UserInfoService {
      */
     Map<String, Object> importStudentFromExcel(String file_path);
 
-    String ExportStudentIntoExcel(List<UserInfo> userInfoList);
 
 }

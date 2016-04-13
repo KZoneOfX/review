@@ -1,19 +1,10 @@
 package Review.r_server.userInfo;
 
 
-import Review.r_basic.r_b_user.User;
-import Review.r_basic.r_b_user.UserMapper;
-import Review.r_basic.r_b_user.UserService;
 import Review.r_util.MD5Util;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.xssf.usermodel.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +21,6 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     private UserInfoMapper userInfoMapper;
 
-    private UserService userService;
 
     public int insertUserInfo(UserInfo userInfo) {
         return userInfoMapper.insertUserInfo(userInfo);
@@ -75,20 +65,17 @@ public class UserInfoServiceImpl implements UserInfoService {
      * @return
      */
     public Map<String, Object> importStudentFromExcel(String file_path) {
-        Map<String, Object> msg = new HashMap<String, Object>();
+        Map<String, Object> msg = new HashMap<>();
         MD5Util md5Util = new MD5Util();
-        InputStream inputStream = null;
-        XSSFWorkbook xssfWorkbook = null;
+        InputStream inputStream;
+        XSSFWorkbook xssfWorkbook;
         try {
             inputStream = new FileInputStream(file_path);
             xssfWorkbook = new XSSFWorkbook(inputStream);
-            XSSFSheet xssfSheet = null;
-            XSSFRow xssfRow = null;
-            XSSFCell xssfCell = null;
-            UserInfo userInfo = null;
-            User user = null;
-
-            List<UserInfo> userInfoList = new ArrayList<UserInfo>();
+            XSSFSheet xssfSheet;
+            XSSFRow xssfRow;
+            UserInfo userInfo;
+            List<UserInfo> userInfoList = new ArrayList<>();
             for (int numSheet = 0; numSheet < xssfWorkbook.getNumberOfSheets(); numSheet++) {
                 xssfSheet = xssfWorkbook.getSheetAt(numSheet);
                 if (xssfSheet == null) {
@@ -110,23 +97,12 @@ public class UserInfoServiceImpl implements UserInfoService {
             System.out.println("@@@@@@@@@@@@@@" + userInfoList.size());
             msg.put("userInfoList", userInfoList);
             msg.put("result", "success");
-        } catch (FileNotFoundException e) {
-            msg.put("result", "failure");
-            e.printStackTrace();
         } catch (IOException e) {
             msg.put("result", "failure");
             e.printStackTrace();
         }
 
         return msg;
-    }
-
-    public String ExportStudentIntoExcel(List<UserInfo> userInfoList) {
-        return null;
-    }
-
-    public UserInfoMapper getUserInfoMapper() {
-        return userInfoMapper;
     }
 
     public void setUserInfoMapper(UserInfoMapper userInfoMapper) {
@@ -140,10 +116,10 @@ public class UserInfoServiceImpl implements UserInfoService {
      * @return
      */
     public String GVFSC(XSSFCell xssfCell) {
-        if (xssfCell.getCellType() == xssfCell.CELL_TYPE_BOOLEAN) {
+        if (xssfCell.getCellType() == Cell.CELL_TYPE_BOOLEAN) {
             // 返回布尔类型的值
             return String.valueOf(xssfCell.getBooleanCellValue());
-        } else if (xssfCell.getCellType() == xssfCell.CELL_TYPE_NUMERIC) {
+        } else if (xssfCell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
             // 返回数值类型的值
             return String.valueOf((long) (xssfCell.getNumericCellValue()));
         } else {
@@ -152,7 +128,4 @@ public class UserInfoServiceImpl implements UserInfoService {
         }
     }
 
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
 }

@@ -88,6 +88,32 @@
 
             });
 
+            $("#studentList_export_students_btn").bind("click", function () {
+                var info = "确定要导出学生信息excel？<br>";
+                Lobibox.confirm({
+                    msg: info,
+                    callback: function ($this, type, ev) {
+                        if (type === 'yes') {
+                            var form = $("<form>");//定义一个form表单
+                            form.attr("style", "display:none");
+                            form.attr("target", "");
+                            form.attr("method", "post");
+                            form.attr("action", "rest/user/export_students");
+                            $("body").append(form);//将表单放置在web中
+                            form.submit();//表单提交
+
+                            Lobibox.notify('success', {
+                                msg: '文件整理打包中~！'
+                            });
+                        } else if (type === 'no') {
+                            Lobibox.notify('info', {
+                                msg: '取消下载！'
+                            });
+                        }
+                    }
+                });
+            });
+
             $("#studentList_import_btn").bind("click", function () {
                 window.location.href = 'rest/user/importStudentListPage';
             });
@@ -221,16 +247,20 @@
                     </tbody>
                 </table>
 
-
-                <a id="studentList_add_student_btn" class="bt_blue">
-                    <span class="bt_blue_lft"></span>
-                    <strong>添加学生</strong>
-                    <span class="bt_blue_r"></span>
+                <a id="studentList_export_students_btn" class="bt_green" >
+                    <span class="bt_green_lft"></span>
+                    <strong>导出学生数据</strong>
+                    <span class="bt_green_r"></span>
                 </a>
                 <a id="studentList_import_btn" class="bt_red">
                     <span class="bt_red_lft"></span>
                     <strong>批量导入学生</strong>
                     <span class="bt_red_r"></span>
+                </a>
+                <a id="studentList_add_student_btn" class="bt_blue">
+                    <span class="bt_blue_lft"></span>
+                    <strong>添加学生</strong>
+                    <span class="bt_blue_r"></span>
                 </a>
                 <a id="studentList_download_papers_btn" class="bt_green" style="position: absolute;">
                     <span class="bt_green_lft"></span>

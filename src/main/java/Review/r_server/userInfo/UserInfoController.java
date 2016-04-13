@@ -8,6 +8,7 @@ import Review.r_util.MD5Util;
 import Review.r_util.R_FileUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.apache.poi.xssf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.support.ManagedMap;
 import org.springframework.stereotype.Controller;
@@ -300,7 +301,7 @@ public class UserInfoController {
     @ResponseBody
     public Map<String, Object> restPassword(String username, HttpServletRequest request) {
         UserInfo userInfo = (UserInfo) request.getSession().getAttribute("userInfo");
-        Map<String, Object> msg = new HashMap<String, Object>();
+        Map<String, Object> msg = new HashMap<>();
         User student = userService.selectByUsername(username);
         UserInfo studentInfo = userInfoService.selectUserInfoByUserId(student.getId());
         student.setPassword(new MD5Util().compute(student.getUsername() + student.getUsername()));
@@ -340,7 +341,7 @@ public class UserInfoController {
     public Map<String, Object> changePwd(String password, HttpServletRequest request) {
         UserInfo userInfo = (UserInfo) request.getSession().getAttribute("userInfo");
         System.out.println(password);
-        Map<String, Object> msg = new HashMap<String, Object>();
+        Map<String, Object> msg = new HashMap<>();
         User user = userService.selectByUsername(userInfo.getUsername());
         user.setPassword(password);
         if (userService.updateUser(user) == 1) {
@@ -352,4 +353,89 @@ public class UserInfoController {
         }
         return msg;
     }
+
+    /**
+     * 导出学生数据到excel中，并下载
+     * @param request
+     * @param response
+     */
+    @RequestMapping(value = "/export_students", method = RequestMethod.POST)
+    public void export_students(HttpServletRequest request ,HttpServletResponse response){
+        UserInfo userInfo = (UserInfo) request.getSession().getAttribute("userInfo");
+        logger.info("!@# user:"+userInfo.getReal_name() +" prepare download student excel !");
+        try {
+            String excel_path = exportStudentIntoExcel(request);
+            R_FileUtils.fileDowmLoad(excel_path,"学生信息表["+new SimpleDateFormat("yyyy-MM-dd").format(new Date())+"].xlsx",response);
+            logger.info("!@# user:"+userInfo.getReal_name() +"  download student excel success!");
+        } catch (IOException e) {
+            logger.info("!@# user:"+userInfo.getReal_name() +"  download student excel failure!");
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * 导出学生数据 到excel中
+     * @param request
+     * @return excel 路径
+     * @throws IOException
+     */
+    public String exportStudentIntoExcel(HttpServletRequest request) throws IOException {
+        String base_path = request.getSession().getServletContext().getRealPath("/serverFile");
+        String folder_path = base_path+"/export_data";
+        File folder = new File(folder_path);
+        if (!folder.exists()){
+            folder.mkdir();
+        }
+        String excel_file_path = folder_path+"/["+new SimpleDateFormat("yyyy-MM-dd").format(new Date())+"].xlsx";
+        List<UserInfo> students = userInfoService.selectStudentList();
+        UserInfo student;
+        int countColumnNum = 7;
+        XSSFWorkbook xssfWorkbook = new XSSFWorkbook();
+        XSSFSheet xssfSheet = xssfWorkbook.createSheet("学生");
+        xssfSheet.setColumnWidth(0,10* 256);
+        xssfSheet.setColumnWidth(1,10* 256);
+        xssfSheet.setColumnWidth(2,10* 256);
+        xssfSheet.setColumnWidth(3,30* 256);
+        xssfSheet.setColumnWidth(4,10* 256);
+        xssfSheet.setColumnWidth(5,15* 256);
+        xssfSheet.setColumnWidth(6,10* 256);
+        XSSFRow firstRow = xssfSheet.createRow(0);
+        XSSFCell[] cells =  new XSSFCell[countColumnNum];
+        String[] names = new String[countColumnNum];
+        names[0] = "序号";
+        names[1] = "学号";
+        names[2] = "姓名";
+        names[3] = "论文名称";
+        names[4] = "论文状态";
+        names[5] = "教学点";
+        names[6] = "指导教师";
+        // 插入表头
+        for (int i = 0; i < countColumnNum; i++) {
+            cells[i] = firstRow.createCell(i);
+            cells[i].setCellValue(new XSSFRichTextString(names[i]));
+        }
+        // 逐行插入数据
+        for (int i = 0; i < students.size(); i++) {
+            XSSFRow row = xssfSheet.createRow(i+1);
+            student = students.get(i);
+            row.createCell(0).setCellValue(i+1);
+            row.createCell(1).setCellValue(student.getUsername());
+            row.createCell(2).setCellValue(student.getReal_name());
+            if (student.getStu_paper_status() == 1) {
+                PaperInfo paperInfo = paperInfoService.selectPaperInfoByUserId(student.getUser_id());
+                row.createCell(3).setCellValue(paperInfo.getPaper_name());
+                row.createCell(4).setCellValue("已提交");
+            } else{
+                row.createCell(3).setCellValue("");
+                row.createCell(4).setCellValue("未提交");
+            }
+            row.createCell(5).setCellValue(student.getPlace());
+            row.createCell(6).setCellValue(student.getStu_tch_name());
+        }
+        OutputStream outputStream = new FileOutputStream(excel_file_path);
+        xssfWorkbook.write(outputStream);
+        return excel_file_path;
+    }
+
 }
